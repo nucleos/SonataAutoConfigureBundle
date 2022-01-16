@@ -40,6 +40,11 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
 
     private string $managerType;
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+     */
     public function process(ContainerBuilder $container): void
     {
         $annotationReader = $container->get('annotation_reader');
@@ -121,6 +126,10 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
         }
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     */
     private function setDefaultValuesForAnnotation(Inflector $inflector, Admin $annotation, string $name, array $defaults): void
     {
         if (null === $annotation->label) {
