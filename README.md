@@ -10,6 +10,8 @@ Tries to auto configure your admin classes and extensions, so you don't have to.
 [![Build Status](https://travis-ci.org/kunicmarko20/SonataAutoConfigureBundle.svg?branch=master)](https://travis-ci.org/kunicmarko20/SonataAutoConfigureBundle)
 [![Coverage Status](https://coveralls.io/repos/github/kunicmarko20/SonataAutoConfigureBundle/badge.svg?branch=master)](https://coveralls.io/github/kunicmarko20/SonataAutoConfigureBundle?branch=master)
 
+This is a fork of the no longer maintained [kunicmarko/sonata-auto-configure-bundle](https://github.com/kunicmarko20/SonataAutoConfigureBundle).
+
 Documentation
 -------------
 
