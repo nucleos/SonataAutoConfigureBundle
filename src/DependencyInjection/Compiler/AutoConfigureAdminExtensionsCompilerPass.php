@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler;
 
 use Doctrine\Common\Annotations\Reader;
-use Nucleos\SonataAutoConfigureBundle\Annotation\AdminExtensionOptions;
+use Nucleos\SonataAutoConfigureBundle\Annotation\AdminExtension;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -39,7 +39,7 @@ final class AutoConfigureAdminExtensionsCompilerPass implements CompilerPassInte
 
             $annotation = $annotationReader->getClassAnnotation(
                 new ReflectionClass($definitionClass),
-                AdminExtensionOptions::class
+                AdminExtension::class
             );
 
             if (!$annotation) {
@@ -70,12 +70,12 @@ final class AutoConfigureAdminExtensionsCompilerPass implements CompilerPassInte
         }
     }
 
-    private function hasTargets(AdminExtensionOptions $annotation): bool
+    private function hasTargets(AdminExtension $annotation): bool
     {
         return \is_array($annotation->target) && \count($annotation->target) > 0;
     }
 
-    private function getTagAttributes(string $target, AdminExtensionOptions $annotation): array
+    private function getTagAttributes(string $target, AdminExtension $annotation): array
     {
         $attributes['target'] = $target;
 

@@ -17,7 +17,7 @@ use Nucleos\SonataAutoConfigureBundle\Annotation as Sonata;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Entity\Category;
 
 /**
- * @Sonata\AdminOptions(
+ * @Sonata\Admin(
  *     label="This is a Label",
  *     entity=Category::class,
  *     group="not test",

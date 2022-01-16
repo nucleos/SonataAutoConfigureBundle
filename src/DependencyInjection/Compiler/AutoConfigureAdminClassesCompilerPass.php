@@ -16,7 +16,7 @@ namespace Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\Inflector\Inflector;
 use Doctrine\Inflector\InflectorFactory;
-use Nucleos\SonataAutoConfigureBundle\Annotation\AdminOptions;
+use Nucleos\SonataAutoConfigureBundle\Annotation\Admin;
 use Nucleos\SonataAutoConfigureBundle\Exception\EntityNotFound;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -87,11 +87,11 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
                 $name = preg_replace("/{$adminSuffix}$/", '', $name);
             }
 
-            /** @var AdminOptions $annotation */
+            /** @var Admin $annotation */
             $annotation = $annotationReader->getClassAnnotation(
                 new ReflectionClass($adminClass),
-                AdminOptions::class
-            ) ?? new AdminOptions();
+                Admin::class
+            ) ?? new Admin();
 
             $this->setDefaultValuesForAnnotation($inflector, $annotation, $name, $annotationDefaults);
 
@@ -127,7 +127,7 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
         }
     }
 
-    private function setDefaultValuesForAnnotation(Inflector $inflector, AdminOptions $annotation, string $name, array $defaults): void
+    private function setDefaultValuesForAnnotation(Inflector $inflector, Admin $annotation, string $name, array $defaults): void
     {
         if (!$annotation->label) {
             $annotation->label = $inflector->capitalize(str_replace('_', ' ', $inflector->tableize($name)));

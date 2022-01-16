@@ -24,8 +24,8 @@ Documentation
 * [Configuration](#configuration)
 * [How does it work](#how-does-it-work)
 * [Annotation](#annotation)
-    * [AdminOptions](#adminoptions)
-    * [AdminExtensionOptions](#adminextensionoptions)
+    * [Admin](#admin)
+    * [AdminExtension](#adminextension)
 
 ## Installation
 
@@ -77,7 +77,7 @@ admin classes and if autoconfigure is enabled we take the class name. If you
 defined a suffix in the config (by default it is `Admin`) we remove it to get
 the name of the entity, so if you had `CategoryAdmin` we get `Category`.
 
-After that we check if the `AdminOption` annotation is present, annotations
+After that we check if the `Admin` annotation is present, annotations
 have a higher priority than our guesses. If no annotation is defined or some of
 the values that are mandatory are not present we still try to guess.
 
@@ -130,7 +130,7 @@ public function setSomeService(SomeService $someService)
 
 ## Annotation
 
-### AdminOptions
+### Admin
 
 ```php
 <?php
@@ -143,7 +143,7 @@ use App\Entity\Category;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 
 /**
- * @Sonata\AdminOptions(
+ * @Sonata\Admin(
  *     label="Category",
  *     managerType="orm",
  *     group="Category",
@@ -171,7 +171,7 @@ final class CategoryAdmin extends AbstractAdmin
 }
 ```
 
-### AdminExtensionOptions
+### AdminExtension
 
 ```php
 <?php
@@ -182,7 +182,7 @@ use Nucleos\SonataAutoConfigureBundle\Annotation as Sonata;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 
 /**
- * @Sonata\AdminExtensionOptions(
+ * @Sonata\AdminExtension(
  *     global=true
  * )
  */
@@ -201,7 +201,7 @@ use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use App\Admin\ActivityAdmin;
 
 /**
- * @Sonata\AdminExtensionOptions(
+ * @Sonata\AdminExtension(
  *     target={"app.admin.project", ActivityAdmin::class}
  * )
  */

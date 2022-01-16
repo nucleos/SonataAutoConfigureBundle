@@ -17,7 +17,7 @@ namespace Nucleos\SonataAutoConfigureBundle\Annotation;
  * @Annotation
  * @Target("CLASS")
  */
-final class AdminExtensionOptions
+final class AdminExtension
 {
     /**
      * @var bool

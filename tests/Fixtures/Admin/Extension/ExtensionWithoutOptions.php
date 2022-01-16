@@ -16,7 +16,7 @@ namespace Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\Extension;
 use Nucleos\SonataAutoConfigureBundle\Annotation as Sonata;
 
 /**
- * @Sonata\AdminExtensionOptions()
+ * @Sonata\AdminExtension()
  */
 class ExtensionWithoutOptions
 {

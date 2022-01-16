@@ -16,7 +16,7 @@ namespace Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin;
 use Nucleos\SonataAutoConfigureBundle\Annotation as Sonata;
 
 /**
- * @Sonata\AdminOptions(autowireEntity=false, templates=null)
+ * @Sonata\Admin(autowireEntity=false, templates=null)
  */
 class DisableAutowireEntityAdmin
 {

@@ -17,7 +17,7 @@ namespace Nucleos\SonataAutoConfigureBundle\Annotation;
  * @Annotation
  * @Target("CLASS")
  */
-final class AdminOptions
+final class Admin
 {
     /**
      * @var string
