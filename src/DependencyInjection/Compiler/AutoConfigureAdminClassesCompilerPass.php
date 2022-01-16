@@ -14,7 +14,8 @@ declare(strict_types=1);
 namespace Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler;
 
 use Doctrine\Common\Annotations\Reader;
-use Doctrine\Common\Inflector\Inflector;
+use Doctrine\Inflector\Inflector;
+use Doctrine\Inflector\InflectorFactory;
 use Nucleos\SonataAutoConfigureBundle\Annotation\AdminOptions;
 use Nucleos\SonataAutoConfigureBundle\Exception\EntityNotFound;
 use ReflectionClass;
@@ -69,6 +70,8 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
         $annotationDefaults['group']      = $container->getParameter('sonata.auto_configure.admin.group');
         $annotationDefaults['pager_type'] = $container->getParameter('sonata.auto_configure.admin.pager_type');
 
+        $inflector = InflectorFactory::create()->build();
+
         foreach ($container->findTaggedServiceIds('sonata.admin') as $id => $attributes) {
             $definition = $container->getDefinition($id);
 
@@ -90,7 +93,7 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
                 AdminOptions::class
             ) ?? new AdminOptions();
 
-            $this->setDefaultValuesForAnnotation($annotation, $name, $annotationDefaults);
+            $this->setDefaultValuesForAnnotation($inflector, $annotation, $name, $annotationDefaults);
 
             $container->removeDefinition($id);
             $definition = $container->setDefinition(
@@ -124,10 +127,10 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
         }
     }
 
-    private function setDefaultValuesForAnnotation(AdminOptions $annotation, string $name, array $defaults): void
+    private function setDefaultValuesForAnnotation(Inflector $inflector, AdminOptions $annotation, string $name, array $defaults): void
     {
         if (!$annotation->label) {
-            $annotation->label = Inflector::ucwords(str_replace('_', ' ', Inflector::tableize($name)));
+            $annotation->label = $inflector->capitalize(str_replace('_', ' ', $inflector->tableize($name)));
         }
 
         if (!$annotation->labelCatalogue) {
