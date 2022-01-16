@@ -27,24 +27,18 @@ use Symfony\Component\DependencyInjection\Reference;
 final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterface
 {
     /**
-     * @var array
+     * @var mixed[]
      */
-    private $entityNamespaces;
+    private array $entityNamespaces;
 
     /**
-     * @var array
+     * @var string[]
      */
-    private $controllerNamespaces;
+    private array $controllerNamespaces;
 
-    /**
-     * @var string
-     */
-    private $controllerSuffix;
+    private string $controllerSuffix;
 
-    /**
-     * @var string
-     */
-    private $managerType;
+    private string $managerType;
 
     public function process(ContainerBuilder $container): void
     {
@@ -83,7 +77,7 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
 
             $name = end($adminClassAsArray);
 
-            if ($adminSuffix) {
+            if (null !== $adminSuffix) {
                 $name = preg_replace("/{$adminSuffix}$/", '', $name);
             }
 
@@ -109,13 +103,13 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
                     ->setAutowired(true)
             );
 
-            if ($annotation->translationDomain) {
+            if (null !== $annotation->translationDomain) {
                 $definition->addMethodCall('setTranslationDomain', [$annotation->translationDomain]);
             }
 
             if (\is_array($annotation->templates)) {
-                foreach ($annotation->templates as $name => $template) {
-                    $definition->addMethodCall('setTemplate', [$name, $template]);
+                foreach ($annotation->templates as $key => $template) {
+                    $definition->addMethodCall('setTemplate', [$key, $template]);
                 }
             }
 
@@ -129,43 +123,43 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
 
     private function setDefaultValuesForAnnotation(Inflector $inflector, Admin $annotation, string $name, array $defaults): void
     {
-        if (!$annotation->label) {
+        if (null === $annotation->label) {
             $annotation->label = $inflector->capitalize(str_replace('_', ' ', $inflector->tableize($name)));
         }
 
-        if (!$annotation->labelCatalogue) {
+        if (null === $annotation->labelCatalogue) {
             $annotation->labelCatalogue = $defaults['label_catalogue'];
         }
 
-        if (!$annotation->labelTranslatorStrategy) {
+        if (null === $annotation->labelTranslatorStrategy) {
             $annotation->labelTranslatorStrategy = $defaults['label_translator_strategy'];
         }
 
-        if (!$annotation->translationDomain) {
+        if (null === $annotation->translationDomain) {
             $annotation->translationDomain = $defaults['translation_domain'];
         }
 
-        if (!$annotation->group) {
+        if (null === $annotation->group) {
             $annotation->group = $defaults['group'];
         }
 
-        if (!$annotation->pagerType) {
+        if (null === $annotation->pagerType) {
             $annotation->pagerType = $defaults['pager_type'];
         }
 
-        if (!$annotation->entity && $annotation->autowireEntity) {
+        if (null === $annotation->entity && true === $annotation->autowireEntity) {
             [$annotation->entity, $managerType] = $this->findEntity($name);
 
-            if (!$annotation->managerType) {
+            if (null === $annotation->managerType) {
                 $annotation->managerType = $managerType;
             }
         }
 
-        if (!$annotation->managerType) {
+        if (null === $annotation->managerType) {
             $annotation->managerType = $this->managerType;
         }
 
-        if (!$annotation->controller) {
+        if (null === $annotation->controller) {
             $annotation->controller = $this->findController($name.$this->controllerSuffix);
         }
     }

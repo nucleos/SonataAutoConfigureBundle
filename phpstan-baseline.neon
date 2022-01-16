@@ -1,2 +1,82 @@
 parameters:
 	ignoreErrors:
+		-
+			message: "#^Implicit array creation is not allowed \\- variable \\$annotationDefaults does not exist\\.$#"
+			count: 1
+			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
+
+		-
+			message: "#^Method Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:findEntity\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
+
+		-
+			message: "#^Method Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:setDefaultValuesForAnnotation\\(\\) has parameter \\$defaults with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
+
+		-
+			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string\\|null given\\.$#"
+			count: 1
+			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
+
+		-
+			message: "#^Parameter \\#2 \\$string of function explode expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
+
+		-
+			message: "#^Parameter \\#3 \\$name of method Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:setDefaultValuesForAnnotation\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
+
+		-
+			message: "#^Part \\$adminSuffix \\(array\\|bool\\|float\\|int\\|string\\) of encapsed string cannot be cast to string\\.$#"
+			count: 1
+			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
+
+		-
+			message: "#^Property Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:\\$controllerNamespaces \\(array\\<string\\>\\) does not accept array\\|bool\\|float\\|int\\|string\\|null\\.$#"
+			count: 1
+			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
+
+		-
+			message: "#^Property Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:\\$controllerSuffix \\(string\\) does not accept array\\|bool\\|float\\|int\\|string\\|null\\.$#"
+			count: 1
+			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
+
+		-
+			message: "#^Property Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:\\$entityNamespaces \\(array\\) does not accept array\\|bool\\|float\\|int\\|string\\|null\\.$#"
+			count: 1
+			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
+
+		-
+			message: "#^Property Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:\\$managerType \\(string\\) does not accept array\\|bool\\|float\\|int\\|string\\|null\\.$#"
+			count: 1
+			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
+
+		-
+			message: "#^Argument of an invalid type array\\<string\\>\\|null supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/DependencyInjection/Compiler/AutoConfigureAdminExtensionsCompilerPass.php
+
+		-
+			message: "#^Implicit array creation is not allowed \\- variable \\$attributes does not exist\\.$#"
+			count: 1
+			path: src/DependencyInjection/Compiler/AutoConfigureAdminExtensionsCompilerPass.php
+
+		-
+			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string\\|null given\\.$#"
+			count: 1
+			path: src/DependencyInjection/Compiler/AutoConfigureAdminExtensionsCompilerPass.php
+
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\TreeBuilder\\:\\:root\\(\\)\\.$#"
+			count: 1
+			path: src/DependencyInjection/Configuration.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\TreeBuilder and 'getRootNode' will always evaluate to true\\.$#"
+			count: 1
+			path: src/DependencyInjection/Configuration.php
+
