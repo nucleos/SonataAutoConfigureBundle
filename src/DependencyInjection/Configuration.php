@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Nucleos\SonataAutoConfigureBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -22,72 +23,96 @@ final class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('sonata_auto_configure');
 
-        if (method_exists($treeBuilder, 'getRootNode')) {
-            $rootNode = $treeBuilder->getRootNode();
-        } else {
-            // BC layer for symfony/config 4.1 and older
-            $rootNode = $treeBuilder->root('sonata_auto_configure');
-        }
+        $rootNode = $treeBuilder->getRootNode();
 
-        $rootNode
+        $rootNode->append($this->getAdminNode());
+        $rootNode->append($this->getEntityNode());
+        $rootNode->append($this->getControllerNode());
+
+        return $treeBuilder;
+    }
+
+    private function getAdminNode(): NodeDefinition
+    {
+        $node = (new TreeBuilder('admin'))->getRootNode();
+
+        $node
+            ->addDefaultsIfNotSet()
             ->children()
-                ->arrayNode('admin')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('suffix')
-                            ->defaultValue('Admin')
-                        ->end()
-                        ->scalarNode('manager_type')
-                            ->defaultValue('orm')
-                            ->cannotBeEmpty()
-                        ->end()
-                        ->scalarNode('label_catalogue')
-                            ->defaultNull()
-                        ->end()
-                        ->scalarNode('label_translator_strategy')
-                            ->defaultNull()
-                        ->end()
-                        ->scalarNode('translation_domain')
-                            ->defaultNull()
-                        ->end()
-                        ->scalarNode('group')
-                            ->defaultNull()
-                        ->end()
-                        ->scalarNode('pager_type')
-                            ->defaultNull()
-                        ->end()
-                    ->end()
+                ->scalarNode('suffix')
+                    ->defaultValue('Admin')
                 ->end()
-                ->arrayNode('entity')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('namespaces')
-                            ->defaultValue([['namespace' => 'App\Entity', 'manager_type' => 'orm']])
-                            ->arrayPrototype()
-                                ->children()
-                                    ->scalarNode('namespace')->cannotBeEmpty()->end()
-                                    ->scalarNode('manager_type')->defaultValue('orm')->end()
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
+                ->scalarNode('manager_type')
+                    ->defaultValue('orm')
+                    ->cannotBeEmpty()
                 ->end()
-                ->arrayNode('controller')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('suffix')
-                            ->defaultValue('Controller')
-                        ->end()
-                        ->arrayNode('namespaces')
-                            ->scalarPrototype()->end()
-                            ->defaultValue(['App\Controller\Admin'])
-                            ->requiresAtLeastOneElement()
+                ->scalarNode('label_catalogue')
+                    ->defaultNull()
+                ->end()
+                ->scalarNode('label_translator_strategy')
+                    ->defaultNull()
+                ->end()
+                ->scalarNode('translation_domain')
+                    ->defaultNull()
+                ->end()
+                ->scalarNode('group')
+                    ->defaultNull()
+                ->end()
+                ->scalarNode('pager_type')
+                    ->defaultNull()
+                ->end()
+            ->end()
+        ->end()
+        ;
+
+        return $node;
+    }
+
+    private function getEntityNode(): NodeDefinition
+    {
+        $node = (new TreeBuilder('entity'))->getRootNode();
+
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->arrayNode('namespaces')
+                    ->defaultValue([[
+                        'namespace'    => 'App\Entity',
+                        'manager_type' => 'orm',
+                    ]])
+                    ->arrayPrototype()
+                        ->children()
+                            ->scalarNode('namespace')->cannotBeEmpty()->end()
+                            ->scalarNode('manager_type')->defaultValue('orm')->end()
                         ->end()
                     ->end()
                 ->end()
             ->end()
+        ->end()
         ;
 
-        return $treeBuilder;
+        return $node;
+    }
+
+    private function getControllerNode(): NodeDefinition
+    {
+        $node = (new TreeBuilder('controller'))->getRootNode();
+
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->scalarNode('suffix')
+                    ->defaultValue('Controller')
+                ->end()
+                ->arrayNode('namespaces')
+                    ->scalarPrototype()->end()
+                    ->defaultValue(['App\Controller\Admin'])
+                    ->requiresAtLeastOneElement()
+                ->end()
+            ->end()
+        ->end()
+        ;
+
+        return $node;
     }
 }

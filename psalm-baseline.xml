@@ -6,9 +6,4 @@
       <code>$container-&gt;getParameter('sonata.auto_configure.controller.suffix')</code>
     </InvalidPropertyAssignmentValue>
   </file>
-  <file src="src/DependencyInjection/Configuration.php">
-    <UndefinedMethod occurrences="1">
-      <code>root</code>
-    </UndefinedMethod>
-  </file>
 </files>
