@@ -1,0 +1,18 @@
+name: 'Continuous Integration'
+
+on:
+  create:
+  pull_request:
+  push:
+    branches:
+      - '[0-9]+.[0-9]+.x'
+      - 'refs/pull/*'
+
+jobs:
+  run:
+    uses: "nucleos/actions/.github/workflows/continuous-integration.yml@main"
+    with:
+      PHP_EXTENSIONS: "mbstring, json, mongodb"
+      SYMFONY_KERNEL: "Nucleos\\SonataAutoConfigureBundle\\Tests\\App\\AppKernel"
+    secrets:
+      CODECOV_TOKEN: "${{ secrets.CODECOV_TOKEN }}"

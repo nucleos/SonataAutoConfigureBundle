@@ -1,0 +1,14 @@
+{
+    "timeout": 10,
+    "source": {
+        "directories": [
+            "src"
+        ]
+    },
+    "logs": {
+        "text": "build/infection/infection-log.txt"
+    },
+    "ignoreMsiWithNoMutations": true,
+    "minMsi": 0,
+    "minCoveredMsi": 0
+}

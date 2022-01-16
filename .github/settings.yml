@@ -1,0 +1,7 @@
+_extends: .github
+
+repository:
+  name: SonataAutoConfigureBundle
+  description: ⚙️ Auto-configuration for SonataAdminBundle
+  homepage: https://nucleos.rocks
+  topics: hacktoberfest, symfony, symfony-bundle, bundle, sonata-admin, sonata, autoconfigure
