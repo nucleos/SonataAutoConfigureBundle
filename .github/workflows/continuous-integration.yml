@@ -12,7 +12,7 @@ jobs:
   run:
     uses: "nucleos/actions/.github/workflows/continuous-integration.yml@main"
     with:
-      PHP_EXTENSIONS: "mbstring, json, mongodb"
-      SYMFONY_KERNEL: "Nucleos\\SonataAutoConfigureBundle\\Tests\\App\\AppKernel"
+      PHP_EXTENSIONS: "mbstring"
+      SYMFONY_VERSIONS: "5.4"
     secrets:
       CODECOV_TOKEN: "${{ secrets.CODECOV_TOKEN }}"
