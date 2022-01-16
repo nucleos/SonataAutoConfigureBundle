@@ -17,7 +17,6 @@ use Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler\AutoConfigure
 use Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler\AutoConfigureAdminExtensionsCompilerPass;
 use Nucleos\SonataAutoConfigureBundle\SonataAutoConfigureBundle;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -40,26 +39,24 @@ final class SonataAutoConfigureBundleTest extends TestCase
 
     public function testCompilerPasses(): void
     {
-        $containerBuilder = $this->prophesize(ContainerBuilder::class);
+        $containerBuilder = $this->createMock(ContainerBuilder::class);
 
         $containerBuilder
-            ->addCompilerPass(
-                Argument::type(AutoConfigureAdminClassesCompilerPass::class),
-                Argument::cetera()
+            ->expects(static::exactly(2))
+            ->method('addCompilerPass')
+            ->withConsecutive(
+                [
+                    static::isInstanceOf(AutoConfigureAdminClassesCompilerPass::class),
+                    static::anything(),
+                ],
+                [
+                    static::isInstanceOf(AutoConfigureAdminExtensionsCompilerPass::class),
+                    static::anything(),
+                ]
             )
-            ->shouldBeCalledTimes(1)
             ->willReturn($containerBuilder)
         ;
 
-        $containerBuilder
-            ->addCompilerPass(
-                Argument::type(AutoConfigureAdminExtensionsCompilerPass::class),
-                Argument::cetera()
-            )
-            ->shouldBeCalledTimes(1)
-            ->willReturn($containerBuilder)
-        ;
-
-        $this->bundle->build($containerBuilder->reveal());
+        $this->bundle->build($containerBuilder);
     }
 }

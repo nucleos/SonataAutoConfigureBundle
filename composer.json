@@ -51,9 +51,9 @@
   "require-dev": {
     "doctrine/doctrine-fixtures-bundle": "^3.0",
     "ergebnis/composer-normalize": "^2.0.1",
-    "matthiasnoback/symfony-dependency-injection-test": "^3.0",
+    "matthiasnoback/symfony-dependency-injection-test": "^4.3",
     "sonata-project/doctrine-orm-admin-bundle": "^3.6",
-    "symfony/phpunit-bridge": "^4.0"
+    "symfony/phpunit-bridge": "^6.0"
   },
   "autoload": {
     "psr-4": {
