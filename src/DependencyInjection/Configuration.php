@@ -2,21 +2,27 @@
 
 declare(strict_types=1);
 
-namespace KunicMarko\SonataAutoConfigureBundle\DependencyInjection;
+/*
+ * This file is part of the SonataAutoConfigureBundle package.
+ *
+ * (c) Christian Gripp <mail@core23.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Nucleos\SonataAutoConfigureBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-/**
- * @author Marko Kunic <kunicmarko20@gmail.com>
- */
 final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('sonata_auto_configure');
 
-        if (\method_exists($treeBuilder, 'getRootNode')) {
+        if (method_exists($treeBuilder, 'getRootNode')) {
             $rootNode = $treeBuilder->getRootNode();
         } else {
             // BC layer for symfony/config 4.1 and older
@@ -79,7 +85,8 @@ final class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-            ->end();
+            ->end()
+        ;
 
         return $treeBuilder;
     }

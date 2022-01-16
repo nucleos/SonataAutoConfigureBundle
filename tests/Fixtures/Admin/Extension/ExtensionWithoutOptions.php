@@ -2,13 +2,21 @@
 
 declare(strict_types=1);
 
-namespace KunicMarko\SonataAutoConfigureBundle\Tests\Fixtures\Admin\Extension;
+/*
+ * This file is part of the SonataAutoConfigureBundle package.
+ *
+ * (c) Christian Gripp <mail@core23.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-use KunicMarko\SonataAutoConfigureBundle\Annotation as Sonata;
+namespace Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\Extension;
+
+use Nucleos\SonataAutoConfigureBundle\Annotation as Sonata;
 
 /**
  * @Sonata\AdminExtensionOptions()
- * @author Marco Polichetti <gremo1982@gmail.com>
  */
 class ExtensionWithoutOptions
 {

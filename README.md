@@ -1,14 +1,19 @@
 SonataAutoConfigureBundle
 =========================
 
+[![Latest Stable Version](https://poser.pugx.org/nucleos/sonata-auto-configure-bundle/v/stable)](https://packagist.org/packages/nucleos/sonata-auto-configure-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/nucleos/sonata-auto-configure-bundle/v/unstable)](https://packagist.org/packages/nucleos/sonata-auto-configure-bundle)
+[![License](https://poser.pugx.org/nucleos/sonata-auto-configure-bundle/license)](LICENSE.md)
+
+[![Total Downloads](https://poser.pugx.org/nucleos/sonata-auto-configure-bundle/downloads)](https://packagist.org/packages/nucleos/sonata-auto-configure-bundle)
+[![Monthly Downloads](https://poser.pugx.org/nucleos/sonata-auto-configure-bundle/d/monthly)](https://packagist.org/packages/nucleos/sonata-auto-configure-bundle)
+[![Daily Downloads](https://poser.pugx.org/nucleos/sonata-auto-configure-bundle/d/daily)](https://packagist.org/packages/nucleos/sonata-auto-configure-bundle)
+
+[![Continuous Integration](https://github.com/nucleos/SonataAutoConfigureBundle/workflows/Continuous%20Integration/badge.svg?event=push)](https://github.com/nucleos/SonataAutoConfigureBundle/actions?query=workflow%3A"Continuous+Integration"+event%3Apush)
+[![Code Coverage](https://codecov.io/gh/nucleos/SonataAutoConfigureBundle/graph/badge.svg)](https://codecov.io/gh/nucleos/SonataAutoConfigureBundle)
+[![Type Coverage](https://shepherd.dev/github/nucleos/SonataAutoConfigureBundle/coverage.svg)](https://shepherd.dev/github/nucleos/SonataAutoConfigureBundle)
+
 Tries to auto configure your admin classes and extensions, so you don't have to.
-
-[![PHP Version](https://img.shields.io/badge/php-%5E7.1-blue.svg)](https://img.shields.io/badge/php-%5E7.1-blue.svg)
-[![Latest Stable Version](https://poser.pugx.org/kunicmarko/sonata-auto-configure-bundle/v/stable)](https://packagist.org/packages/kunicmarko/sonata-auto-configure-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/kunicmarko/sonata-auto-configure-bundle/v/unstable)](https://packagist.org/packages/kunicmarko/sonata-auto-configure-bundle)
-
-[![Build Status](https://travis-ci.org/kunicmarko20/SonataAutoConfigureBundle.svg?branch=master)](https://travis-ci.org/kunicmarko20/SonataAutoConfigureBundle)
-[![Coverage Status](https://coveralls.io/repos/github/kunicmarko20/SonataAutoConfigureBundle/badge.svg?branch=master)](https://coveralls.io/github/kunicmarko20/SonataAutoConfigureBundle?branch=master)
 
 This is a fork of the no longer maintained [kunicmarko/sonata-auto-configure-bundle](https://github.com/kunicmarko20/SonataAutoConfigureBundle).
 
@@ -27,7 +32,7 @@ Documentation
 **1.**  Add dependency with Composer
 
 ```bash
-composer require kunicmarko/sonata-auto-configure-bundle
+composer require nucleos/sonata-auto-configure-bundle
 ```
 
 **2.** Enable the bundle for all Symfony environments:
@@ -36,7 +41,7 @@ composer require kunicmarko/sonata-auto-configure-bundle
 // bundles.php
 return [
     //...
-    KunicMarko\SonataAutoConfigureBundle\SonataAutoConfigureBundle::class => ['all' => true],
+    Nucleos\SonataAutoConfigureBundle\SonataAutoConfigureBundle::class => ['all' => true],
 ];
 ```
 
@@ -132,7 +137,7 @@ public function setSomeService(SomeService $someService)
 
 namespace App\Admin;
 
-use KunicMarko\SonataAutoConfigureBundle\Annotation as Sonata;
+use Nucleos\SonataAutoConfigureBundle\Annotation as Sonata;
 use App\Controller\Admin\CategoryController;
 use App\Entity\Category;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -173,7 +178,7 @@ final class CategoryAdmin extends AbstractAdmin
 
 namespace App\Admin;
 
-use KunicMarko\SonataAutoConfigureBundle\Annotation as Sonata;
+use Nucleos\SonataAutoConfigureBundle\Annotation as Sonata;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 
 /**
@@ -191,7 +196,7 @@ final class GlobalExtension extends AbstractAdminExtension
 
 namespace App\Admin;
 
-use KunicMarko\SonataAutoConfigureBundle\Annotation as Sonata;
+use Nucleos\SonataAutoConfigureBundle\Annotation as Sonata;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use App\Admin\ActivityAdmin;
 

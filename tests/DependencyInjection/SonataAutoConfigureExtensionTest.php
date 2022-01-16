@@ -2,14 +2,20 @@
 
 declare(strict_types=1);
 
-namespace KunicMarko\SonataAutoConfigureBundle\Tests\DependencyInjection;
-
-use KunicMarko\SonataAutoConfigureBundle\DependencyInjection\SonataAutoConfigureExtension;
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-
-/**
- * @author Marko Kunic <kunicmarko20@gmail.com>
+/*
+ * This file is part of the SonataAutoConfigureBundle package.
+ *
+ * (c) Christian Gripp <mail@core23.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
+namespace Nucleos\SonataAutoConfigureBundle\Tests\DependencyInjection;
+
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Nucleos\SonataAutoConfigureBundle\DependencyInjection\SonataAutoConfigureExtension;
+
 final class SonataAutoConfigureExtensionTest extends AbstractExtensionTestCase
 {
     public function testParametersInContainer(): void

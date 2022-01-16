@@ -1,20 +1,42 @@
 {
-  "name": "kunicmarko/sonata-auto-configure-bundle",
-  "type": "symfony-bundle",
+  "name": "nucleos/sonata-auto-configure-bundle",
   "description": "Symfony Bundle that auto configures Sonata Admin.",
+  "license": "MIT",
+  "type": "symfony-bundle",
   "keywords": [
     "symfony",
     "sonata",
     "sonata-admin",
     "autoconfigure"
   ],
-  "homepage": "https://github.com/kunicmarko20/SonataAutoConfigureBundle",
-  "license": "MIT",
   "authors": [
     {
       "name": "Marko Kunic",
       "email": "kunicmarko20@gmail.com",
       "homepage": "https://twitter.com/kunicmarko20"
+    },
+    {
+      "name": "Christian Gripp",
+      "email": "mail@core23.de"
+    }
+  ],
+  "homepage": "https://nucleos.rocks",
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/core23"
+    },
+    {
+      "type": "opencollective",
+      "url": "https://opencollective.com/core23"
+    },
+    {
+      "type": "ko-fi",
+      "url": "https://ko-fi.com/core23"
+    },
+    {
+      "type": "other",
+      "url": "https://donate.core23.de"
     }
   ],
   "require": {
@@ -33,26 +55,21 @@
     "sonata-project/doctrine-orm-admin-bundle": "^3.6",
     "symfony/phpunit-bridge": "^4.0"
   },
-  "config": {
-    "sort-packages": true,
-    "allow-plugins": {
-      "composer/package-versions-deprecated": true,
-      "ergebnis/composer-normalize": true
-    }
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "1.x-dev"
-    }
-  },
   "autoload": {
     "psr-4": {
-      "KunicMarko\\SonataAutoConfigureBundle\\": "src/"
+      "Nucleos\\SonataAutoConfigureBundle\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "KunicMarko\\SonataAutoConfigureBundle\\Tests\\": "tests/"
+      "Nucleos\\SonataAutoConfigureBundle\\Tests\\": "tests/"
     }
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/package-versions-deprecated": true,
+      "ergebnis/composer-normalize": true
+    },
+    "sort-packages": true
   }
 }

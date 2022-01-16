@@ -2,13 +2,20 @@
 
 declare(strict_types=1);
 
-namespace KunicMarko\SonataAutoConfigureBundle\Annotation;
+/*
+ * This file is part of the SonataAutoConfigureBundle package.
+ *
+ * (c) Christian Gripp <mail@core23.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Nucleos\SonataAutoConfigureBundle\Annotation;
 
 /**
  * @Annotation
  * @Target("CLASS")
- *
- * @author Marko Kunic <kunicmarko20@gmail.com>
  */
 final class AdminOptions
 {
@@ -104,7 +111,7 @@ final class AdminOptions
 
     public function getOptions(): array
     {
-        return \array_filter(
+        return array_filter(
             [
                 'manager_type'              => $this->managerType,
                 'group'                     => $this->group,
@@ -119,7 +126,7 @@ final class AdminOptions
                 'pager_type'                => $this->pagerType,
             ],
             static function ($value): bool {
-                return $value !== null;
+                return null !== $value;
             }
         );
     }

@@ -2,16 +2,22 @@
 
 declare(strict_types=1);
 
-namespace KunicMarko\SonataAutoConfigureBundle\DependencyInjection;
+/*
+ * This file is part of the SonataAutoConfigureBundle package.
+ *
+ * (c) Christian Gripp <mail@core23.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Nucleos\SonataAutoConfigureBundle\DependencyInjection;
 
 use Sonata\AdminBundle\Admin\AdminExtensionInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
-/**
- * @author Marko Kunic <kunicmarko20@gmail.com>
- */
 final class SonataAutoConfigureExtension extends ConfigurableExtension
 {
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
@@ -42,9 +48,11 @@ final class SonataAutoConfigureExtension extends ConfigurableExtension
         );
 
         $container->registerForAutoconfiguration(AdminInterface::class)
-            ->addTag('sonata.admin');
+            ->addTag('sonata.admin')
+        ;
 
         $container->registerForAutoconfiguration(AdminExtensionInterface::class)
-            ->addTag('sonata.admin.extension');
+            ->addTag('sonata.admin.extension')
+        ;
     }
 }

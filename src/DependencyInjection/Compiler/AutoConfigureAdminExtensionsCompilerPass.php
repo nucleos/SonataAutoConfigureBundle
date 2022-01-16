@@ -2,17 +2,24 @@
 
 declare(strict_types=1);
 
-namespace KunicMarko\SonataAutoConfigureBundle\DependencyInjection\Compiler;
+/*
+ * This file is part of the SonataAutoConfigureBundle package.
+ *
+ * (c) Christian Gripp <mail@core23.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler;
 
 use Doctrine\Common\Annotations\Reader;
-use KunicMarko\SonataAutoConfigureBundle\Annotation\AdminExtensionOptions;
+use Nucleos\SonataAutoConfigureBundle\Annotation\AdminExtensionOptions;
+use ReflectionClass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
-/**
- * @author Marco Polichetti <gremo1982@gmail.com>
- */
 final class AutoConfigureAdminExtensionsCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
@@ -31,7 +38,7 @@ final class AutoConfigureAdminExtensionsCompilerPass implements CompilerPassInte
             $definitionClass = $definition->getClass();
 
             $annotation = $annotationReader->getClassAnnotation(
-                new \ReflectionClass($definitionClass),
+                new ReflectionClass($definitionClass),
                 AdminExtensionOptions::class
             );
 

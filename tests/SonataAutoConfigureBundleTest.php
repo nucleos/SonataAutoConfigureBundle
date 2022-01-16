@@ -2,19 +2,25 @@
 
 declare(strict_types=1);
 
-namespace KunicMarko\SonataAutoConfigureBundle\Tests;
+/*
+ * This file is part of the SonataAutoConfigureBundle package.
+ *
+ * (c) Christian Gripp <mail@core23.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-use KunicMarko\SonataAutoConfigureBundle\DependencyInjection\Compiler\AutoConfigureAdminClassesCompilerPass;
-use KunicMarko\SonataAutoConfigureBundle\DependencyInjection\Compiler\AutoConfigureAdminExtensionsCompilerPass;
-use KunicMarko\SonataAutoConfigureBundle\SonataAutoConfigureBundle;
+namespace Nucleos\SonataAutoConfigureBundle\Tests;
+
+use Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler\AutoConfigureAdminClassesCompilerPass;
+use Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler\AutoConfigureAdminExtensionsCompilerPass;
+use Nucleos\SonataAutoConfigureBundle\SonataAutoConfigureBundle;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * @author Marko Kunic <kunicmarko20@gmail.com>
- */
 final class SonataAutoConfigureBundleTest extends TestCase
 {
     /**
@@ -29,7 +35,7 @@ final class SonataAutoConfigureBundleTest extends TestCase
 
     public function testBundle(): void
     {
-        $this->assertInstanceOf(Bundle::class, $this->bundle);
+        static::assertInstanceOf(Bundle::class, $this->bundle);
     }
 
     public function testCompilerPasses(): void
@@ -42,7 +48,8 @@ final class SonataAutoConfigureBundleTest extends TestCase
                 Argument::cetera()
             )
             ->shouldBeCalledTimes(1)
-            ->willReturn($containerBuilder);
+            ->willReturn($containerBuilder)
+        ;
 
         $containerBuilder
             ->addCompilerPass(
@@ -50,7 +57,8 @@ final class SonataAutoConfigureBundleTest extends TestCase
                 Argument::cetera()
             )
             ->shouldBeCalledTimes(1)
-            ->willReturn($containerBuilder);
+            ->willReturn($containerBuilder)
+        ;
 
         $this->bundle->build($containerBuilder->reveal());
     }

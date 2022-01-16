@@ -2,25 +2,31 @@
 
 declare(strict_types=1);
 
-namespace KunicMarko\SonataAutoConfigureBundle\Tests\DependencyInjection\Compiler;
+/*
+ * This file is part of the SonataAutoConfigureBundle package.
+ *
+ * (c) Christian Gripp <mail@core23.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Nucleos\SonataAutoConfigureBundle\Tests\DependencyInjection\Compiler;
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use KunicMarko\SonataAutoConfigureBundle\DependencyInjection\Compiler\AutoConfigureAdminClassesCompilerPass;
-use KunicMarko\SonataAutoConfigureBundle\DependencyInjection\SonataAutoConfigureExtension;
-use KunicMarko\SonataAutoConfigureBundle\Exception\EntityNotFound;
-use KunicMarko\SonataAutoConfigureBundle\Tests\Fixtures\Admin\AnnotationAdmin;
-use KunicMarko\SonataAutoConfigureBundle\Tests\Fixtures\Admin\CategoryAdmin;
-use KunicMarko\SonataAutoConfigureBundle\Tests\Fixtures\Admin\DisableAutowireEntityAdmin;
-use KunicMarko\SonataAutoConfigureBundle\Tests\Fixtures\Admin\NoEntityAdmin;
-use KunicMarko\SonataAutoConfigureBundle\Tests\Fixtures\Entity\Category;
+use Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler\AutoConfigureAdminClassesCompilerPass;
+use Nucleos\SonataAutoConfigureBundle\DependencyInjection\SonataAutoConfigureExtension;
+use Nucleos\SonataAutoConfigureBundle\Exception\EntityNotFound;
+use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\AnnotationAdmin;
+use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\CategoryAdmin;
+use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\DisableAutowireEntityAdmin;
+use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\NoEntityAdmin;
+use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Entity\Category;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
-/**
- * @author Marko Kunic <kunicmarko20@gmail.com>
- */
 final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
 {
     /**
@@ -36,7 +42,7 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
     protected function setUp(): void
     {
         $this->autoConfigureAdminClassesCompilerPass = new AutoConfigureAdminClassesCompilerPass();
-        $this->containerBuilder = new ContainerBuilder();
+        $this->containerBuilder                      = new ContainerBuilder();
 
         $this->containerBuilder->setDefinition('annotation_reader', new Definition(AnnotationReader::class));
         $this->containerBuilder->registerExtension(new SonataAutoConfigureExtension());
@@ -50,8 +56,8 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
         ?string $entity,
         ?string $adminCode,
         array $tagOptions,
-        array $methodCalls = []): void
-    {
+        array $methodCalls = []
+    ): void {
         $this->loadConfig([
             'admin' => [
                 'group' => 'test',
@@ -59,13 +65,13 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
             'entity' => [
                 'namespaces' => [
                     [
-                        'namespace' => 'KunicMarko\SonataAutoConfigureBundle\Tests\Fixtures\Entity',
+                        'namespace' => 'Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Entity',
                     ],
                 ],
             ],
             'controller' => [
                 'namespaces' => [
-                    'KunicMarko\SonataAutoConfigureBundle\Tests\Fixtures\Controller',
+                    'Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Controller',
                 ],
             ],
         ]);
@@ -79,23 +85,23 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
 
         $this->autoConfigureAdminClassesCompilerPass->process($this->containerBuilder);
 
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             Definition::class,
             $adminDefinition = $this->containerBuilder->getDefinition($definitionId)
         );
 
-        $this->assertSame(
+        static::assertSame(
             $tagOptions,
             $adminDefinition->getTag('sonata.admin')[0]
         );
 
-        $this->assertSame(
+        static::assertSame(
             $entity,
             $adminDefinition->getArgument(1)
         );
 
         foreach ($methodCalls as $methodCall) {
-            $this->assertTrue($adminDefinition->hasMethodCall($methodCall));
+            static::assertTrue($adminDefinition->hasMethodCall($methodCall));
         }
     }
 
@@ -108,8 +114,8 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
                 'admin.category',
                 [
                     'manager_type' => 'orm',
-                    'group' => 'test',
-                    'label' => 'Category',
+                    'group'        => 'test',
+                    'label'        => 'Category',
                 ],
             ],
             [
@@ -117,13 +123,13 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
                 Category::class,
                 null,
                 [
-                    'manager_type' => 'orm',
-                    'group' => 'not test',
-                    'label' => 'This is a Label',
-                    'show_in_dashboard' => true,
+                    'manager_type'       => 'orm',
+                    'group'              => 'not test',
+                    'label'              => 'This is a Label',
+                    'show_in_dashboard'  => true,
                     'show_mosaic_button' => true,
-                    'keep_open' => false,
-                    'on_top' => false,
+                    'keep_open'          => false,
+                    'on_top'             => false,
                 ],
                 [
                     'setTemplate',
@@ -137,18 +143,11 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
                 'admin.disable_autowire_entity',
                 [
                     'manager_type' => 'orm',
-                    'group' => 'test',
-                    'label' => 'Disable Autowire Entity',
+                    'group'        => 'test',
+                    'label'        => 'Disable Autowire Entity',
                 ],
             ],
         ];
-    }
-
-    private function loadConfig(array $config = []): void
-    {
-        (new SonataAutoConfigureExtension())->load([
-            'sonata_auto_configure' => $config
-        ], $this->containerBuilder);
     }
 
     public function testProcessSkipAutoConfigured(): void
@@ -175,5 +174,12 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
 
         $this->expectException(EntityNotFound::class);
         $this->autoConfigureAdminClassesCompilerPass->process($this->containerBuilder);
+    }
+
+    private function loadConfig(array $config = []): void
+    {
+        (new SonataAutoConfigureExtension())->load([
+            'sonata_auto_configure' => $config,
+        ], $this->containerBuilder);
     }
 }

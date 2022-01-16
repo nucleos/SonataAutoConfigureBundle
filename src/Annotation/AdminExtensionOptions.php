@@ -2,13 +2,20 @@
 
 declare(strict_types=1);
 
-namespace KunicMarko\SonataAutoConfigureBundle\Annotation;
+/*
+ * This file is part of the SonataAutoConfigureBundle package.
+ *
+ * (c) Christian Gripp <mail@core23.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Nucleos\SonataAutoConfigureBundle\Annotation;
 
 /**
  * @Annotation
  * @Target("CLASS")
- *
- * @author Marco Polichetti <gremo1982@gmail.com>
  */
 final class AdminExtensionOptions
 {
@@ -18,7 +25,7 @@ final class AdminExtensionOptions
     public $global;
 
     /**
-     * @var integer
+     * @var int
      */
     public $priority;
 
@@ -29,14 +36,14 @@ final class AdminExtensionOptions
 
     public function getOptions(): array
     {
-        return \array_filter(
+        return array_filter(
             [
-                'global' => $this->global,
+                'global'   => $this->global,
                 'priority' => $this->priority,
-                'target' => $this->target,
+                'target'   => $this->target,
             ],
             static function ($value): bool {
-                return $value !== null;
+                return null !== $value;
             }
         );
     }
