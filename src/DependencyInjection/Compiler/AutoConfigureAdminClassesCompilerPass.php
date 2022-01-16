@@ -13,12 +13,14 @@ declare(strict_types=1);
 
 namespace Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler;
 
-use Doctrine\Common\Annotations\Reader;
 use Doctrine\Inflector\Inflector;
 use Doctrine\Inflector\InflectorFactory;
-use Nucleos\SonataAutoConfigureBundle\Annotation\Admin;
+use Generator;
+use Nucleos\SonataAutoConfigureBundle\Attribute\Admin;
 use Nucleos\SonataAutoConfigureBundle\Exception\EntityNotFound;
+use ReflectionAttribute;
 use ReflectionClass;
+use Sonata\AdminBundle\Admin\AdminInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -47,27 +49,13 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
      */
     public function process(ContainerBuilder $container): void
     {
-        $annotationReader = $container->get('annotation_reader');
-
-        \assert($annotationReader instanceof Reader);
-
         $adminSuffix                = $container->getParameter('sonata.auto_configure.admin.suffix');
         $this->managerType          = $container->getParameter('sonata.auto_configure.admin.manager_type');
         $this->entityNamespaces     = $container->getParameter('sonata.auto_configure.entity.namespaces');
         $this->controllerNamespaces = $container->getParameter('sonata.auto_configure.controller.namespaces');
         $this->controllerSuffix     = $container->getParameter('sonata.auto_configure.controller.suffix');
 
-        $annotationDefaults['label_catalogue'] = $container
-            ->getParameter('sonata.auto_configure.admin.label_catalogue')
-        ;
-        $annotationDefaults['label_translator_strategy'] = $container
-            ->getParameter('sonata.auto_configure.admin.label_translator_strategy')
-        ;
-        $annotationDefaults['translation_domain'] = $container
-            ->getParameter('sonata.auto_configure.admin.translation_domain')
-        ;
-        $annotationDefaults['group']      = $container->getParameter('sonata.auto_configure.admin.group');
-        $annotationDefaults['pager_type'] = $container->getParameter('sonata.auto_configure.admin.pager_type');
+        $attributeDefaults = $this->getAttributeDefaults($container);
 
         $inflector = InflectorFactory::create()->build();
 
@@ -78,7 +66,13 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
                 continue;
             }
 
-            $adminClassAsArray = explode('\\', $adminClass = $definition->getClass());
+            $adminClass = $definition->getClass();
+
+            if (null === $adminClass) {
+                continue;
+            }
+
+            $adminClassAsArray = explode('\\', $adminClass);
 
             $name = end($adminClassAsArray);
 
@@ -86,41 +80,38 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
                 $name = preg_replace("/{$adminSuffix}$/", '', $name);
             }
 
-            /** @var Admin $annotation */
-            $annotation = $annotationReader->getClassAnnotation(
-                new ReflectionClass($adminClass),
-                Admin::class
-            ) ?? new Admin();
+            $attributes = $this->getAttributes($adminClass);
 
-            $this->setDefaultValuesForAnnotation($inflector, $annotation, $name, $annotationDefaults);
+            foreach ($attributes as $attribute) {
+                $this->setDefaultValuesForAttribute($inflector, $attribute, $name, $attributeDefaults);
 
-            $container->removeDefinition($id);
-            $definition = $container->setDefinition(
-                $annotation->adminCode ?? $id,
-                (new Definition($adminClass))
-                    ->addTag('sonata.admin', $annotation->getOptions())
-                    ->setArguments([
-                        $annotation->adminCode,
-                        $annotation->entity,
-                        $annotation->controller,
-                    ])
-                    ->setAutoconfigured(true)
-                    ->setAutowired(true)
-            );
+                $container->removeDefinition($id);
+                $definition = $container->setDefinition(
+                    $attribute->getAdminCode() ?? $id,
+                    (new Definition($adminClass))
+                        ->addTag('sonata.admin', $attribute->getOptions())
+                        ->setArguments([
+                            $attribute->getAdminCode(),
+                            $attribute->getEntity(),
+                            $attribute->getController(),
+                        ])
+                        ->setAutoconfigured(true)->setAutowired(true)
+                );
 
-            if (null !== $annotation->translationDomain) {
-                $definition->addMethodCall('setTranslationDomain', [$annotation->translationDomain]);
-            }
-
-            if (\is_array($annotation->templates)) {
-                foreach ($annotation->templates as $key => $template) {
-                    $definition->addMethodCall('setTemplate', [$key, $template]);
+                if (null !== $attribute->getTranslationDomain()) {
+                    $definition->addMethodCall('setTranslationDomain', [$attribute->getTranslationDomain()]);
                 }
-            }
 
-            if (\is_array($annotation->children)) {
-                foreach ($annotation->children as $childId) {
-                    $definition->addMethodCall('addChild', [new Reference($childId)]);
+                if (\is_array($attribute->getTemplates())) {
+                    foreach ($attribute->getTemplates() as $key => $template) {
+                        $definition->addMethodCall('setTemplate', [$key, $template]);
+                    }
+                }
+
+                if (\is_array($attribute->getChildren())) {
+                    foreach ($attribute->getChildren() as $childId) {
+                        $definition->addMethodCall('addChild', [new Reference($childId)]);
+                    }
                 }
             }
         }
@@ -130,46 +121,50 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
-    private function setDefaultValuesForAnnotation(Inflector $inflector, Admin $annotation, string $name, array $defaults): void
+    private function setDefaultValuesForAttribute(Inflector $inflector, Admin $attribute, string $name, array $defaults): void
     {
-        if (null === $annotation->label) {
-            $annotation->label = $inflector->capitalize(str_replace('_', ' ', $inflector->tableize($name)));
+        if (null === $attribute->getLabel()) {
+            $attribute->setLabel($inflector->capitalize(str_replace('_', ' ', $inflector->tableize($name))));
         }
 
-        if (null === $annotation->labelCatalogue) {
-            $annotation->labelCatalogue = $defaults['label_catalogue'];
+        if (null === $attribute->getLabelCatalogue()) {
+            $attribute->setLabelCatalogue($defaults['label_catalogue']);
         }
 
-        if (null === $annotation->labelTranslatorStrategy) {
-            $annotation->labelTranslatorStrategy = $defaults['label_translator_strategy'];
+        if (null === $attribute->getLabelTranslatorStrategy()) {
+            $attribute->setLabelTranslatorStrategy($defaults['label_translator_strategy']);
         }
 
-        if (null === $annotation->translationDomain) {
-            $annotation->translationDomain = $defaults['translation_domain'];
+        if (null === $attribute->getTranslationDomain()) {
+            $attribute->setTranslationDomain($defaults['translation_domain']);
         }
 
-        if (null === $annotation->group) {
-            $annotation->group = $defaults['group'];
+        if (null === $attribute->getGroup()) {
+            $attribute->setGroup($defaults['group']);
         }
 
-        if (null === $annotation->pagerType) {
-            $annotation->pagerType = $defaults['pager_type'];
+        if (null === $attribute->getPagerType()) {
+            $attribute->setPagerType($defaults['pager_type']);
         }
 
-        if (null === $annotation->entity && true === $annotation->autowireEntity) {
-            [$annotation->entity, $managerType] = $this->findEntity($name);
+        if (null === $attribute->getEntity() && true === $attribute->getAutowireEntity()) {
+            [$entity, $managerType] = $this->findEntity($name);
 
-            if (null === $annotation->managerType) {
-                $annotation->managerType = $managerType;
+            if (null !== $entity) {
+                $attribute->setEntity($entity);
+            }
+
+            if (null === $attribute->getManagerType()) {
+                $attribute->setManagerType($managerType);
             }
         }
 
-        if (null === $annotation->managerType) {
-            $annotation->managerType = $this->managerType;
+        if (null === $attribute->getManagerType()) {
+            $attribute->setManagerType($this->managerType);
         }
 
-        if (null === $annotation->controller) {
-            $annotation->controller = $this->findController($name.$this->controllerSuffix);
+        if (null === $attribute->getController()) {
+            $attribute->setController($this->findController($name.$this->controllerSuffix));
         }
     }
 
@@ -193,5 +188,39 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
         }
 
         return null;
+    }
+
+    /**
+     * @return Generator<array-key, Admin>
+     */
+    private function getAttributes(string $class): iterable
+    {
+        $reflectionClass = new ReflectionClass($class);
+
+        $attributes = $reflectionClass->getAttributes(Admin::class, ReflectionAttribute::IS_INSTANCEOF);
+
+        if (!$reflectionClass->implementsInterface(AdminInterface::class)) {
+            return;
+        }
+
+        foreach ($attributes as $attribute) {
+            yield $attribute->newInstance();
+        }
+
+        if (0 === \count($attributes)) {
+            yield new Admin();
+        }
+    }
+
+    private function getAttributeDefaults(ContainerBuilder $container): array
+    {
+        $defaults                              = [];
+        $defaults['label_catalogue']           = $container->getParameter('sonata.auto_configure.admin.label_catalogue');
+        $defaults['label_translator_strategy'] = $container->getParameter('sonata.auto_configure.admin.label_translator_strategy');
+        $defaults['translation_domain']        = $container->getParameter('sonata.auto_configure.admin.translation_domain');
+        $defaults['group']                     = $container->getParameter('sonata.auto_configure.admin.group');
+        $defaults['pager_type']                = $container->getParameter('sonata.auto_configure.admin.pager_type');
+
+        return $defaults;
     }
 }

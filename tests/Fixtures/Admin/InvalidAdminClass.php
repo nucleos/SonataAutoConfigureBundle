@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the SonataAutoConfigureBundle package.
  *
@@ -14,12 +12,8 @@ declare(strict_types=1);
 namespace Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin;
 
 use Nucleos\SonataAutoConfigureBundle\Attribute\Admin;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
 
-/**
- * @extends AbstractAdmin<object>
- */
-#[Admin(autowireEntity: false, templates: null)]
-class DisableAutowireEntityAdmin extends AbstractAdmin
+#[Admin]
+class InvalidAdminClass
 {
 }

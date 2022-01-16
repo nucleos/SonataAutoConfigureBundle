@@ -13,11 +13,13 @@ declare(strict_types=1);
 
 namespace Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\Extension;
 
-use Nucleos\SonataAutoConfigureBundle\Annotation as Sonata;
+use Nucleos\SonataAutoConfigureBundle\Attribute\AdminExtension;
+use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 
 /**
- * @Sonata\AdminExtension()
+ * @extends AbstractAdminExtension<object>
  */
-class ExtensionWithoutOptions
+#[AdminExtension]
+class ExtensionWithoutOptions extends AbstractAdminExtension
 {
 }
