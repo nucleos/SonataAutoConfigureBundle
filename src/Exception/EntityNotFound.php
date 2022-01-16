@@ -17,6 +17,9 @@ use RuntimeException;
 
 final class EntityNotFound extends RuntimeException implements SonataAutoConfigureExceptionInterface
 {
+    /**
+     * @param mixed[] $namespaces
+     */
     public function __construct(string $name, array $namespaces)
     {
         parent::__construct(sprintf(

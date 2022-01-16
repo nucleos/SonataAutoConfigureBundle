@@ -20,6 +20,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 final class SonataAutoConfigureExtension extends ConfigurableExtension
 {
+    /**
+     * @param mixed[] $mergedConfig
+     */
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {
         $container->setParameter('sonata.auto_configure.admin.suffix', $mergedConfig['admin']['suffix']);

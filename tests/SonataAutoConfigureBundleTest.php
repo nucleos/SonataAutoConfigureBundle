@@ -18,23 +18,14 @@ use Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler\AutoConfigure
 use Nucleos\SonataAutoConfigureBundle\SonataAutoConfigureBundle;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class SonataAutoConfigureBundleTest extends TestCase
 {
-    /**
-     * @var SonataAutoConfigureBundle
-     */
-    private $bundle;
+    private SonataAutoConfigureBundle $bundle;
 
     protected function setUp(): void
     {
         $this->bundle = new SonataAutoConfigureBundle();
-    }
-
-    public function testBundle(): void
-    {
-        static::assertInstanceOf(Bundle::class, $this->bundle);
     }
 
     public function testCompilerPasses(): void

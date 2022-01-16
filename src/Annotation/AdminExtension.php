@@ -19,21 +19,18 @@ namespace Nucleos\SonataAutoConfigureBundle\Annotation;
  */
 final class AdminExtension
 {
-    /**
-     * @var bool
-     */
-    public $global;
+    public ?bool $global = null;
+
+    public ?int $priority = null;
 
     /**
-     * @var int
+     * @var string[]|null
      */
-    public $priority;
+    public ?array $target = null;
 
     /**
-     * @var string[]
+     * @return array<string, mixed>
      */
-    public $target;
-
     public function getOptions(): array
     {
         return array_filter(
@@ -42,7 +39,7 @@ final class AdminExtension
                 'priority' => $this->priority,
                 'target'   => $this->target,
             ],
-            static function ($value): bool {
+            static function (mixed $value): bool {
                 return null !== $value;
             }
         );

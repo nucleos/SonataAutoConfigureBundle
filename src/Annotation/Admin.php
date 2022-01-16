@@ -19,96 +19,51 @@ namespace Nucleos\SonataAutoConfigureBundle\Annotation;
  */
 final class Admin
 {
-    /**
-     * @var string
-     */
-    public $label;
+    public ?string $label = null;
+
+    public ?string $managerType = null;
+
+    public ?string $group = null;
+
+    public ?bool $showInDashboard = null;
+
+    public ?bool $showMosaicButton = null;
+
+    public ?bool $keepOpen = null;
+
+    public ?bool $onTop = null;
+
+    public ?string $icon = null;
+
+    public ?string $labelTranslatorStrategy = null;
+
+    public ?string $labelCatalogue = null;
+
+    public ?string $translationDomain = null;
+
+    public ?string $pagerType = null;
+
+    public ?string $adminCode = null;
+
+    public ?string $entity = null;
+
+    public ?string $controller = null;
+
+    public ?bool $autowireEntity = true;
 
     /**
-     * @var string
+     * @var array<string, string>|null
      */
-    public $managerType;
+    public ?array $templates = [];
 
     /**
-     * @var string
+     * @var string[]|null
      */
-    public $group;
+    public ?array $children = [];
 
     /**
-     * @var bool
+     * @return array<string, mixed>
      */
-    public $showInDashboard;
-
-    /**
-     * @var bool
-     */
-    public $showMosaicButton;
-
-    /**
-     * @var bool
-     */
-    public $keepOpen;
-
-    /**
-     * @var bool
-     */
-    public $onTop;
-
-    /**
-     * @var string
-     */
-    public $icon;
-
-    /**
-     * @var string
-     */
-    public $labelTranslatorStrategy;
-
-    /**
-     * @var string
-     */
-    public $labelCatalogue;
-
-    /**
-     * @var string
-     */
-    public $translationDomain;
-
-    /**
-     * @var string
-     */
-    public $pagerType;
-
-    /**
-     * @var string
-     */
-    public $adminCode;
-
-    /**
-     * @var string
-     */
-    public $entity;
-
-    /**
-     * @var string
-     */
-    public $controller;
-
-    /**
-     * @var bool
-     */
-    public $autowireEntity = true;
-
-    /**
-     * @var array<string, string>
-     */
-    public $templates = [];
-
-    /**
-     * @var string[]
-     */
-    public $children = [];
-
     public function getOptions(): array
     {
         return array_filter(
@@ -125,7 +80,7 @@ final class Admin
                 'label_catalogue'           => $this->labelCatalogue,
                 'pager_type'                => $this->pagerType,
             ],
-            static function ($value): bool {
+            static function (mixed $value): bool {
                 return null !== $value;
             }
         );

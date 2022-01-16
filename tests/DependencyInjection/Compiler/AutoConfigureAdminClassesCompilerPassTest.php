@@ -29,15 +29,9 @@ use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
 final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
 {
-    /**
-     * @var AutoConfigureAdminClassesCompilerPass
-     */
-    private $autoConfigureAdminClassesCompilerPass;
+    private AutoConfigureAdminClassesCompilerPass $autoConfigureAdminClassesCompilerPass;
 
-    /**
-     * @var ContainerBuilder
-     */
-    private $containerBuilder;
+    private ContainerBuilder $containerBuilder;
 
     protected function setUp(): void
     {
@@ -50,6 +44,9 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
 
     /**
      * @dataProvider processData
+     *
+     * @param array<string, mixed> $tagOptions
+     * @param string[]             $methodCalls
      */
     public function testProcess(
         string $admin,
@@ -105,6 +102,9 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
         }
     }
 
+    /**
+     * @return mixed[]
+     */
     public function processData(): array
     {
         return [
@@ -176,6 +176,9 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
         $this->autoConfigureAdminClassesCompilerPass->process($this->containerBuilder);
     }
 
+    /**
+     * @param mixed[] $config
+     */
     private function loadConfig(array $config = []): void
     {
         (new SonataAutoConfigureExtension())->load([

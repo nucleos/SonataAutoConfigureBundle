@@ -26,15 +26,9 @@ use Symfony\Component\DependencyInjection\Definition;
 
 final class AutoConfigureExtensionsCompilerPassTest extends TestCase
 {
-    /**
-     * @var AutoConfigureAdminExtensionsCompilerPass
-     */
-    private $autoconfigureExtensionsCompilerPass;
+    private AutoConfigureAdminExtensionsCompilerPass $autoconfigureExtensionsCompilerPass;
 
-    /**
-     * @var ContainerBuilder
-     */
-    private $containerBuilder;
+    private ContainerBuilder $containerBuilder;
 
     protected function setUp(): void
     {
@@ -47,6 +41,8 @@ final class AutoConfigureExtensionsCompilerPassTest extends TestCase
 
     /**
      * @dataProvider processData
+     *
+     * @param string[] $expectedTags
      */
     public function testProcess(string $extensionServiceId, array $expectedTags = []): void
     {
@@ -71,6 +67,9 @@ final class AutoConfigureExtensionsCompilerPassTest extends TestCase
         }
     }
 
+    /**
+     * @return mixed[]
+     */
     public function processData(): array
     {
         return [
@@ -138,6 +137,9 @@ final class AutoConfigureExtensionsCompilerPassTest extends TestCase
         static::assertEmpty(reset($tag));
     }
 
+    /**
+     * @param mixed[] $config
+     */
     private function loadConfig(array $config = []): void
     {
         (new SonataAutoConfigureExtension())->load([

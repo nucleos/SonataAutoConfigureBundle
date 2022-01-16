@@ -42,7 +42,7 @@ final class AutoConfigureAdminExtensionsCompilerPass implements CompilerPassInte
                 AdminExtension::class
             );
 
-            if (!$annotation) {
+            if (null === $annotation) {
                 continue;
             }
 
@@ -75,11 +75,14 @@ final class AutoConfigureAdminExtensionsCompilerPass implements CompilerPassInte
         return \is_array($annotation->target) && \count($annotation->target) > 0;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getTagAttributes(string $target, AdminExtension $annotation): array
     {
         $attributes['target'] = $target;
 
-        if ($annotation->priority) {
+        if (null !== $annotation->priority) {
             $attributes['priority'] = $annotation->priority;
         }
 
