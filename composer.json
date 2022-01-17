@@ -41,7 +41,6 @@
   ],
   "require": {
     "php": "^8.0",
-    "doctrine/annotations": "^1.13",
     "doctrine/inflector": "^2.0.4",
     "sonata-project/admin-bundle": "^4.7",
     "symfony/config": "^5.4 || ^6.0",

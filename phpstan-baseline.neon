@@ -1,32 +1,27 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Implicit array creation is not allowed \\- variable \\$annotationDefaults does not exist\\.$#"
-			count: 1
-			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
-
-		-
 			message: "#^Method Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:findEntity\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
 
 		-
-			message: "#^Method Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:setDefaultValuesForAnnotation\\(\\) has parameter \\$defaults with no value type specified in iterable type array\\.$#"
+			message: "#^Method Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:getAttributeDefaults\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
 
 		-
-			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string\\|null given\\.$#"
+			message: "#^Method Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:setDefaultValuesForAttribute\\(\\) has parameter \\$defaults with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
 
 		-
-			message: "#^Parameter \\#2 \\$string of function explode expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
 
 		-
-			message: "#^Parameter \\#3 \\$name of method Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:setDefaultValuesForAnnotation\\(\\) expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#3 \\$name of method Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:setDefaultValuesForAttribute\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
 
@@ -66,7 +61,7 @@ parameters:
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminExtensionsCompilerPass.php
 
 		-
-			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminExtensionsCompilerPass.php
 

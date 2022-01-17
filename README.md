@@ -23,9 +23,7 @@ Documentation
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [How does it work](#how-does-it-work)
-* [Annotation](#annotation)
-    * [Admin](#admin)
-    * [AdminExtension](#adminextension)
+* [Attribute](#attribute)
 
 ## Installation
 
@@ -77,8 +75,8 @@ admin classes and if autoconfigure is enabled we take the class name. If you
 defined a suffix in the config (by default it is `Admin`) we remove it to get
 the name of the entity, so if you had `CategoryAdmin` we get `Category`.
 
-After that we check if the `Admin` annotation is present, annotations
-have a higher priority than our guesses. If no annotation is defined or some of
+After that we check if the `Admin` attribute is present, attributes
+have a higher priority than our guesses. If no attribute is defined or some of
 the values that are mandatory are not present we still try to guess.
 
 First, we set the label and based on previous example it will be `Category`.
@@ -88,12 +86,12 @@ the class name.
 
 After, we try to find the `Category` entity in the list of namespaces you
 defined (by default it is just `App\Entity`). If the entity is not found an
-exception is thrown and you will probably need to use an annotation to define
+exception is thrown and you will probably need to use an attribute to define
 the entity. You can set the `manager_type` attribute per namespace.
 
-By default we will take `manager_type` from annotations, if they are not
+By default we will take `manager_type` from attributes, if they are not
 present we will take it from the namespace definition. If you define the entity
-in your annotation but not the `manager_type` then we will take the manager
+in your attribute but not the `manager_type` then we will take the manager
 type from the bundle configuration that will be available as a
 `sonata_auto_configure.admin.manager_type` parameter.
 
@@ -104,7 +102,7 @@ controller we leave it as `null` and sonata will add its default controller.
 
 And that is it. We have all the info we need for defining an admin class, if
 you used some of the other tag options when defining your admin class you will
-have to use Annotation or register admin on your own with `autoconfigure:
+have to use attribute or register admin on your own with `autoconfigure:
 false` that would look like:
 
 ```yaml
@@ -116,56 +114,40 @@ App\Admin\CategoryAdmin:
     public: true
 ```
 
-Since your admin class is autowired you can still use setter injection but you have to add a `@required` annotation:
-
-```php
-/**
- * @required
- */
-public function setSomeService(SomeService $someService)
-{
-    $this->someService = $someService;
-}
-```
-
-## Annotation
-
-### Admin
+## Attribute
 
 ```php
 <?php
 
 namespace App\Admin;
 
-use Nucleos\SonataAutoConfigureBundle\Annotation as Sonata;
+use Nucleos\SonataAutoConfigureBundle\Attribute\Admin;
 use App\Controller\Admin\CategoryController;
 use App\Entity\Category;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 
-/**
- * @Sonata\Admin(
- *     label="Category",
- *     managerType="orm",
- *     group="Category",
- *     showInDashboard=true,
- *     showMosaicButton=true,
- *     keepOpen=true,
- *     onTop=true,
- *     icon="<i class='fa fa-user'></i>",
- *     labelTranslatorStrategy="sonata.admin.label.strategy.native",
- *     labelCatalogue="App",
- *     translationDomain="messages",
- *     pagerType="simple",
- *     controller=CategoryController::class,
- *     entity=Category::class,
- *     adminCode="admin_code",
- *     autowireEntity=true,
- *     templates={
- *         "list": "admin/category/list.html.twig"
- *     },
- *     children={"app.admin.product"}
- * )
- */
+#[Admin(
+    label: "Category",
+    managerType: "orm",
+    group: "Category",
+    showInDashboard: true,
+    showMosaicButton: true,
+    keepOpen: true,
+    onTop: true,
+    icon: "<i class: 'fa fa-user'></i>",
+    labelTranslatorStrategy: "sonata.admin.label.strategy.native",
+    labelCatalogue: "App",
+    translationDomain: "messages",
+    pagerType: "simple",
+    controller: CategoryController::class,
+    entity: Category::class,
+    adminCode: "admin_code",
+    autowireEntity: true,
+    templates: [
+        "list" => "admin/category/list.html.twig"
+    ],
+    children: ["app.admin.product"]
+)]
 final class CategoryAdmin extends AbstractAdmin
 {
 }
@@ -178,14 +160,12 @@ final class CategoryAdmin extends AbstractAdmin
 
 namespace App\Admin;
 
-use Nucleos\SonataAutoConfigureBundle\Annotation as Sonata;
+use Nucleos\SonataAutoConfigureBundle\Attribute\AdminExtension;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 
-/**
- * @Sonata\AdminExtension(
- *     global=true
- * )
- */
+#[AdminExtension(
+    global: true
+)]
 final class GlobalExtension extends AbstractAdminExtension
 {
 }
@@ -196,15 +176,13 @@ final class GlobalExtension extends AbstractAdminExtension
 
 namespace App\Admin;
 
-use Nucleos\SonataAutoConfigureBundle\Annotation as Sonata;
+use Nucleos\SonataAutoConfigureBundle\Attribute\AdminExtension;
 use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 use App\Admin\ActivityAdmin;
 
-/**
- * @Sonata\AdminExtension(
- *     target={"app.admin.project", ActivityAdmin::class}
- * )
- */
+#[AdminExtension(
+    target: ["app.admin.project", ActivityAdmin::class]
+)]
 final class SortableExtension extends AbstractAdminExtension
 {
 }

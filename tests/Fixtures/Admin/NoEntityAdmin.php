@@ -13,6 +13,11 @@ declare(strict_types=1);
 
 namespace Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin;
 
-class NoEntityAdmin
+use Sonata\AdminBundle\Admin\AbstractAdmin;
+
+/**
+ * @extends AbstractAdmin<object>
+ */
+class NoEntityAdmin extends AbstractAdmin
 {
 }

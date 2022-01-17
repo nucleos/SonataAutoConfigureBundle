@@ -13,21 +13,22 @@ declare(strict_types=1);
 
 namespace Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler;
 
-use Doctrine\Common\Annotations\Reader;
-use Nucleos\SonataAutoConfigureBundle\Annotation\AdminExtension;
+use Generator;
+use Nucleos\SonataAutoConfigureBundle\Attribute\AdminExtension;
+use ReflectionAttribute;
 use ReflectionClass;
+use Sonata\AdminBundle\Admin\AdminExtensionInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
 final class AutoConfigureAdminExtensionsCompilerPass implements CompilerPassInterface
 {
+    /**
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     */
     public function process(ContainerBuilder $container): void
     {
-        $annotationReader = $container->get('annotation_reader');
-
-        \assert($annotationReader instanceof Reader);
-
         foreach ($container->findTaggedServiceIds('sonata.admin.extension') as $id => $attributes) {
             $definition = $container->getDefinition($id);
 
@@ -37,55 +38,74 @@ final class AutoConfigureAdminExtensionsCompilerPass implements CompilerPassInte
 
             $definitionClass = $definition->getClass();
 
-            $annotation = $annotationReader->getClassAnnotation(
-                new ReflectionClass($definitionClass),
-                AdminExtension::class
-            );
-
-            if (null === $annotation) {
+            if (null === $definitionClass) {
                 continue;
             }
 
-            $container->removeDefinition($id);
+            $attributes = $this->getAttributes($definitionClass);
 
-            $definition = $container->setDefinition(
-                $id,
-                (new Definition($definitionClass))
-                    ->setAutoconfigured(true)
-                    ->setAutowired(true)
-            );
+            foreach ($attributes as $attribute) {
+                $container->removeDefinition($id);
 
-            if (!$this->hasTargets($annotation)) {
-                $definition->addTag('sonata.admin.extension', $annotation->getOptions());
-
-                continue;
-            }
-
-            foreach ($annotation->target as $target) {
-                $definition->addTag(
-                    'sonata.admin.extension',
-                    $this->getTagAttributes($target, $annotation)
+                $definition = $container->setDefinition(
+                    $id,
+                    (new Definition($definitionClass))
+                        ->setAutoconfigured(true)
+                        ->setAutowired(true)
                 );
+
+                if (!$this->hasTargets($attribute)) {
+                    $definition
+                        ->addTag('sonata.admin.extension', $attribute->getOptions())
+                    ;
+
+                    continue;
+                }
+
+                foreach ($attribute->getTarget() as $target) {
+                    $definition->addTag(
+                        'sonata.admin.extension',
+                        $this->getTagAttributes($target, $attribute)
+                    );
+                }
             }
         }
     }
 
-    private function hasTargets(AdminExtension $annotation): bool
+    private function hasTargets(AdminExtension $attribute): bool
     {
-        return \is_array($annotation->target) && \count($annotation->target) > 0;
+        return \is_array($attribute->getTarget()) && \count($attribute->getTarget()) > 0;
     }
 
     /**
      * @return array<string, mixed>
      */
-    private function getTagAttributes(string $target, AdminExtension $annotation): array
+    private function getTagAttributes(string $target, AdminExtension $attribute): array
     {
         $attributes['target'] = $target;
 
-        if (null !== $annotation->priority) {
-            $attributes['priority'] = $annotation->priority;
+        if (null !== $attribute->getPriority()) {
+            $attributes['priority'] = $attribute->getPriority();
         }
 
         return $attributes;
+    }
+
+    /**
+     * @return Generator<array-key, AdminExtension>
+     */
+    private function getAttributes(string $class): iterable
+    {
+        $reflectionClass = new ReflectionClass($class);
+
+        if (!$reflectionClass->implementsInterface(AdminExtensionInterface::class)) {
+            return;
+        }
+
+        $attributes = $reflectionClass->getAttributes(AdminExtension::class, ReflectionAttribute::IS_INSTANCEOF);
+
+        foreach ($attributes as $attribute) {
+            yield $attribute->newInstance();
+        }
     }
 }

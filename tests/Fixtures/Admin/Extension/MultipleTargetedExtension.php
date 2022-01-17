@@ -13,13 +13,15 @@ declare(strict_types=1);
 
 namespace Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\Extension;
 
-use Nucleos\SonataAutoConfigureBundle\Annotation as Sonata;
+use Nucleos\SonataAutoConfigureBundle\Attribute\AdminExtension;
+use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 
 /**
- * @Sonata\AdminExtension(
- *     target={"app.admin.category", "app.admin.media"}
- * )
+ * @extends AbstractAdminExtension<object>
  */
-class MultipleTargetedExtension
+#[AdminExtension(
+    target: ['app.admin.category', 'app.admin.media']
+)]
+class MultipleTargetedExtension extends AbstractAdminExtension
 {
 }

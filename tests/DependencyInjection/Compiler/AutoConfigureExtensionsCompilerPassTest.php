@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Nucleos\SonataAutoConfigureBundle\Tests\DependencyInjection\Compiler;
 
-use Doctrine\Common\Annotations\AnnotationReader;
 use Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler\AutoConfigureAdminExtensionsCompilerPass;
 use Nucleos\SonataAutoConfigureBundle\DependencyInjection\SonataAutoConfigureExtension;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\Extension\ExtensionWithoutOptions;
@@ -35,7 +34,6 @@ final class AutoConfigureExtensionsCompilerPassTest extends TestCase
         $this->autoconfigureExtensionsCompilerPass = new AutoConfigureAdminExtensionsCompilerPass();
         $this->containerBuilder                    = new ContainerBuilder();
 
-        $this->containerBuilder->setDefinition('annotation_reader', new Definition(AnnotationReader::class));
         $this->containerBuilder->registerExtension(new SonataAutoConfigureExtension());
     }
 
@@ -70,41 +68,30 @@ final class AutoConfigureExtensionsCompilerPassTest extends TestCase
     /**
      * @return mixed[]
      */
-    public function processData(): array
+    public function processData(): iterable
     {
-        return [
+        yield [ExtensionWithoutOptions::class];
+
+        yield [GlobalExtension::class, [
             [
-                ExtensionWithoutOptions::class,
+                'global' => true,
             ],
+        ]];
+
+        yield [TargetedWithPriorityExtension::class, [
             [
-                GlobalExtension::class,
-                [
-                    [
-                        'global' => true,
-                    ],
-                ],
+                'target'   => 'app.admin.category',
+                'priority' => 5,
             ],
+        ]];
+
+        yield [MultipleTargetedExtension::class, [
             [
-                TargetedWithPriorityExtension::class,
-                [
-                    [
-                        'target'   => 'app.admin.category',
-                        'priority' => 5,
-                    ],
-                ],
+                'target' => 'app.admin.category',
+            ], [
+                'target' => 'app.admin.media',
             ],
-            [
-                MultipleTargetedExtension::class,
-                [
-                    [
-                        'target' => 'app.admin.category',
-                    ],
-                    [
-                        'target' => 'app.admin.media',
-                    ],
-                ],
-            ],
-        ];
+        ]];
     }
 
     public function testProcessSkipAutoConfigured(): void
@@ -122,7 +109,7 @@ final class AutoConfigureExtensionsCompilerPassTest extends TestCase
         static::assertEmpty(reset($tag));
     }
 
-    public function testProcessSkipIfAnnotationMissing(): void
+    public function testProcessSkipIfAttributeMissing(): void
     {
         $this->loadConfig();
         $this->containerBuilder->setDefinition(

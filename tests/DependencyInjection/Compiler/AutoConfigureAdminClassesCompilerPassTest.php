@@ -13,11 +13,10 @@ declare(strict_types=1);
 
 namespace Nucleos\SonataAutoConfigureBundle\Tests\DependencyInjection\Compiler;
 
-use Doctrine\Common\Annotations\AnnotationReader;
 use Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler\AutoConfigureAdminClassesCompilerPass;
 use Nucleos\SonataAutoConfigureBundle\DependencyInjection\SonataAutoConfigureExtension;
 use Nucleos\SonataAutoConfigureBundle\Exception\EntityNotFound;
-use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\AnnotationAdmin;
+use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\AttributedAdmin;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\CategoryAdmin;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\DisableAutowireEntityAdmin;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\NoEntityAdmin;
@@ -38,7 +37,6 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
         $this->autoConfigureAdminClassesCompilerPass = new AutoConfigureAdminClassesCompilerPass();
         $this->containerBuilder                      = new ContainerBuilder();
 
-        $this->containerBuilder->setDefinition('annotation_reader', new Definition(AnnotationReader::class));
         $this->containerBuilder->registerExtension(new SonataAutoConfigureExtension());
     }
 
@@ -105,47 +103,47 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
     /**
      * @return mixed[]
      */
-    public function processData(): array
+    public function processData(): iterable
     {
-        return [
+        yield [
+            CategoryAdmin::class,
+            Category::class,
+            'admin.category',
             [
-                CategoryAdmin::class,
-                Category::class,
-                'admin.category',
-                [
-                    'manager_type' => 'orm',
-                    'group'        => 'test',
-                    'label'        => 'Category',
-                ],
+                'manager_type' => 'orm',
+                'group'        => 'test',
+                'label'        => 'Category',
+            ],
+        ];
+
+        yield [
+            AttributedAdmin::class,
+            Category::class,
+            null,
+            [
+                'manager_type'       => 'orm',
+                'group'              => 'not test',
+                'label'              => 'This is a Label',
+                'show_in_dashboard'  => true,
+                'show_mosaic_button' => true,
+                'keep_open'          => false,
+                'on_top'             => false,
             ],
             [
-                AnnotationAdmin::class,
-                Category::class,
-                null,
-                [
-                    'manager_type'       => 'orm',
-                    'group'              => 'not test',
-                    'label'              => 'This is a Label',
-                    'show_in_dashboard'  => true,
-                    'show_mosaic_button' => true,
-                    'keep_open'          => false,
-                    'on_top'             => false,
-                ],
-                [
-                    'setTemplate',
-                    'setTranslationDomain',
-                    'addChild',
-                ],
+                'setTemplate',
+                'setTranslationDomain',
+                'addChild',
             ],
+        ];
+
+        yield [
+            DisableAutowireEntityAdmin::class,
+            null,
+            'admin.disable_autowire_entity',
             [
-                DisableAutowireEntityAdmin::class,
-                null,
-                'admin.disable_autowire_entity',
-                [
-                    'manager_type' => 'orm',
-                    'group'        => 'test',
-                    'label'        => 'Disable Autowire Entity',
-                ],
+                'manager_type' => 'orm',
+                'group'        => 'test',
+                'label'        => 'Disable Autowire Entity',
             ],
         ];
     }
