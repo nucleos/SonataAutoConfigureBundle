@@ -2,24 +2,22 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 1.0.0 - TBD
+## 1.0.0 - 2022-02-04
 
-### Added
 
-- Nothing.
+-----
 
-### Changed
+### Release Notes for [1.0.0](https://github.com/nucleos/SonataAutoConfigureBundle/milestone/1)
 
-- Nothing.
 
-### Deprecated
 
-- Nothing.
+### 1.0.0
 
-### Removed
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
 
-- Nothing.
+#### Enhancement
 
-### Fixed
+ - [1: Add support for attributes](https://github.com/nucleos/SonataAutoConfigureBundle/pull/1) thanks to @core23
 
-- Nothing.
