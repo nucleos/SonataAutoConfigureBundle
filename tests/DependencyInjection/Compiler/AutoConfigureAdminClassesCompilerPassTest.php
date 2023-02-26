@@ -80,10 +80,7 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
 
         $this->autoConfigureAdminClassesCompilerPass->process($this->containerBuilder);
 
-        static::assertInstanceOf(
-            Definition::class,
-            $adminDefinition = $this->containerBuilder->getDefinition($definitionId)
-        );
+        $adminDefinition = $this->containerBuilder->getDefinition($definitionId);
 
         static::assertSame(
             $tagOptions,
