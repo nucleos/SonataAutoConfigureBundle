@@ -56,6 +56,7 @@ final class AutoConfigureExtensionsCompilerPassTest extends TestCase
         $extensionDefinition = $this->containerBuilder->getDefinition($extensionServiceId);
 
         $actualTags = $extensionDefinition->getTag('sonata.admin.extension');
+        static::assertGreaterThan(0, $actualTags);
         foreach ($expectedTags as $i => $expectedTag) {
             static::assertArrayHasKey($i, $actualTags);
             static::assertSame($expectedTag, $actualTags[$i]);
