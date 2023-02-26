@@ -53,10 +53,7 @@ final class AutoConfigureExtensionsCompilerPassTest extends TestCase
 
         $this->autoconfigureExtensionsCompilerPass->process($this->containerBuilder);
 
-        static::assertInstanceOf(
-            Definition::class,
-            $extensionDefinition = $this->containerBuilder->getDefinition($extensionServiceId)
-        );
+        $extensionDefinition = $this->containerBuilder->getDefinition($extensionServiceId);
 
         $actualTags = $extensionDefinition->getTag('sonata.admin.extension');
         foreach ($expectedTags as $i => $expectedTag) {
