@@ -20,10 +20,10 @@
         "vimeo/psalm": "^5.0"
     },
     "config": {
-        "bin-dir": "../../vendor/bin",
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "phpstan/extension-installer": true
-        }
+        },
+        "bin-dir": "../../vendor/bin"
     }
 }
