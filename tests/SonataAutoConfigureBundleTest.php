@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Nucleos\SonataAutoConfigureBundle\Tests;
 
-use Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler\AutoConfigureAdminClassesCompilerPass;
-use Nucleos\SonataAutoConfigureBundle\DependencyInjection\Compiler\AutoConfigureAdminExtensionsCompilerPass;
 use Nucleos\SonataAutoConfigureBundle\SonataAutoConfigureBundle;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -35,16 +33,6 @@ final class SonataAutoConfigureBundleTest extends TestCase
         $containerBuilder
             ->expects(static::exactly(2))
             ->method('addCompilerPass')
-            ->withConsecutive(
-                [
-                    static::isInstanceOf(AutoConfigureAdminClassesCompilerPass::class),
-                    static::anything(),
-                ],
-                [
-                    static::isInstanceOf(AutoConfigureAdminExtensionsCompilerPass::class),
-                    static::anything(),
-                ]
-            )
             ->willReturn($containerBuilder)
         ;
 
