@@ -1,19 +1,5 @@
 {
-    "extends": [
-        "config:base",
-        ":preserveSemverRanges"
-    ],
-    "labels": [
-        "dependency"
-    ],
-    "packageRules": [
-        {
-            "matchDepTypes": [
-                "devDependencies",
-                "optionalDependencies"
-            ],
-            "automerge": true,
-            "addLabels": []
-        }
-    ]
+  "extends": [
+    "github>nucleos/.github:renovate-config"
+  ]
 }
