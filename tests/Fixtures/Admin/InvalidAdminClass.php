@@ -14,6 +14,4 @@ namespace Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin;
 use Nucleos\SonataAutoConfigureBundle\Attribute\Admin;
 
 #[Admin]
-class InvalidAdminClass
-{
-}
+class InvalidAdminClass {}

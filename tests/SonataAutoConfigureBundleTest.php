@@ -31,7 +31,7 @@ final class SonataAutoConfigureBundleTest extends TestCase
         $containerBuilder = $this->createMock(ContainerBuilder::class);
 
         $containerBuilder
-            ->expects(static::exactly(2))
+            ->expects(self::exactly(2))
             ->method('addCompilerPass')
             ->willReturn($containerBuilder)
         ;

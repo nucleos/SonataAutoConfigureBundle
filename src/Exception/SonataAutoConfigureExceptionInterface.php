@@ -15,6 +15,4 @@ namespace Nucleos\SonataAutoConfigureBundle\Exception;
 
 use Throwable;
 
-interface SonataAutoConfigureExceptionInterface extends Throwable
-{
-}
+interface SonataAutoConfigureExceptionInterface extends Throwable {}
