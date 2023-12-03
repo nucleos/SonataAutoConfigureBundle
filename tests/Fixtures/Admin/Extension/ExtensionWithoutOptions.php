@@ -20,6 +20,4 @@ use Sonata\AdminBundle\Admin\AbstractAdminExtension;
  * @extends AbstractAdminExtension<object>
  */
 #[AdminExtension]
-class ExtensionWithoutOptions extends AbstractAdminExtension
-{
-}
+class ExtensionWithoutOptions extends AbstractAdminExtension {}

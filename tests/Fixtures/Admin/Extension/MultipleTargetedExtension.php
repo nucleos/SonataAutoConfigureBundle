@@ -22,6 +22,4 @@ use Sonata\AdminBundle\Admin\AbstractAdminExtension;
 #[AdminExtension(
     target: ['app.admin.category', 'app.admin.media']
 )]
-class MultipleTargetedExtension extends AbstractAdminExtension
-{
-}
+class MultipleTargetedExtension extends AbstractAdminExtension {}

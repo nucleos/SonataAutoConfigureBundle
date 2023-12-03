@@ -20,6 +20,4 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
  * @extends AbstractAdmin<object>
  */
 #[Admin(autowireEntity: false, templates: null)]
-class DisableAutowireEntityAdmin extends AbstractAdmin
-{
-}
+class DisableAutowireEntityAdmin extends AbstractAdmin {}

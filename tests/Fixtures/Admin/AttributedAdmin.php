@@ -36,6 +36,4 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
         'admin.product',
     ]
 )]
-class AttributedAdmin extends AbstractAdmin
-{
-}
+class AttributedAdmin extends AbstractAdmin {}

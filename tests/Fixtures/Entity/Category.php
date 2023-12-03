@@ -13,6 +13,4 @@ declare(strict_types=1);
 
 namespace Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Entity;
 
-class Category
-{
-}
+class Category {}

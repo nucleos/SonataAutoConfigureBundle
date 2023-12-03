@@ -18,6 +18,4 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 /**
  * @extends AbstractAdmin<object>
  */
-class CategoryAdmin extends AbstractAdmin
-{
-}
+class CategoryAdmin extends AbstractAdmin {}

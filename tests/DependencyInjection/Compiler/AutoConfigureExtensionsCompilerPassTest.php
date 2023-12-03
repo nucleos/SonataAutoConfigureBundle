@@ -38,7 +38,7 @@ final class AutoConfigureExtensionsCompilerPassTest extends TestCase
     }
 
     /**
-     * @dataProvider processData
+     * @dataProvider provideProcessCases
      *
      * @param string[] $expectedTags
      */
@@ -56,17 +56,17 @@ final class AutoConfigureExtensionsCompilerPassTest extends TestCase
         $extensionDefinition = $this->containerBuilder->getDefinition($extensionServiceId);
 
         $actualTags = $extensionDefinition->getTag('sonata.admin.extension');
-        static::assertGreaterThan(0, $actualTags);
+        self::assertGreaterThan(0, $actualTags);
         foreach ($expectedTags as $i => $expectedTag) {
-            static::assertArrayHasKey($i, $actualTags);
-            static::assertSame($expectedTag, $actualTags[$i]);
+            self::assertArrayHasKey($i, $actualTags);
+            self::assertSame($expectedTag, $actualTags[$i]);
         }
     }
 
     /**
      * @return mixed[]
      */
-    public function processData(): iterable
+    public function provideProcessCases(): iterable
     {
         yield [ExtensionWithoutOptions::class];
 
@@ -104,7 +104,7 @@ final class AutoConfigureExtensionsCompilerPassTest extends TestCase
 
         $definition = $this->containerBuilder->getDefinition(TargetedWithPriorityExtension::class);
         $tag        = $definition->getTag('sonata.admin.extension');
-        static::assertEmpty(reset($tag));
+        self::assertEmpty(reset($tag));
     }
 
     public function testProcessSkipIfAttributeMissing(): void
@@ -119,7 +119,7 @@ final class AutoConfigureExtensionsCompilerPassTest extends TestCase
 
         $definition = $this->containerBuilder->getDefinition(ExtensionWithoutOptions::class);
         $tag        = $definition->getTag('sonata.admin.extension');
-        static::assertEmpty(reset($tag));
+        self::assertEmpty(reset($tag));
     }
 
     /**

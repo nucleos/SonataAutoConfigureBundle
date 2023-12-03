@@ -20,6 +20,4 @@ use Sonata\AdminBundle\Admin\AbstractAdminExtension;
  * @extends AbstractAdminExtension<object>
  */
 #[AdminExtension(priority: 5, target: ['app.admin.category'])]
-class TargetedWithPriorityExtension extends AbstractAdminExtension
-{
-}
+class TargetedWithPriorityExtension extends AbstractAdminExtension {}

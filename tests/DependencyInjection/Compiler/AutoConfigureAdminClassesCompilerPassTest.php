@@ -41,7 +41,7 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
     }
 
     /**
-     * @dataProvider processData
+     * @dataProvider provideProcessCases
      *
      * @param array<string, mixed> $tagOptions
      * @param string[]             $methodCalls
@@ -82,25 +82,25 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
 
         $adminDefinition = $this->containerBuilder->getDefinition($definitionId);
 
-        static::assertSame(
+        self::assertSame(
             $tagOptions,
             $adminDefinition->getTag('sonata.admin')[0]
         );
 
-        static::assertSame(
+        self::assertSame(
             $entity,
             $adminDefinition->getArgument(1)
         );
 
         foreach ($methodCalls as $methodCall) {
-            static::assertTrue($adminDefinition->hasMethodCall($methodCall));
+            self::assertTrue($adminDefinition->hasMethodCall($methodCall));
         }
     }
 
     /**
      * @return mixed[]
      */
-    public function processData(): iterable
+    public function provideProcessCases(): iterable
     {
         yield [
             CategoryAdmin::class,
