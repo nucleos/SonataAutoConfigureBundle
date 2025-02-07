@@ -66,7 +66,7 @@ final class AutoConfigureExtensionsCompilerPassTest extends TestCase
     /**
      * @return mixed[]
      */
-    public function provideProcessCases(): iterable
+    public static function provideProcessCases(): iterable
     {
         yield [ExtensionWithoutOptions::class];
 

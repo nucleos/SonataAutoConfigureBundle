@@ -22,7 +22,7 @@ final class EntityNotFound extends RuntimeException implements SonataAutoConfigu
      */
     public function __construct(string $name, array $namespaces)
     {
-        parent::__construct(sprintf(
+        parent::__construct(\sprintf(
             'Entity "%s" not found, looked in "%s" namespaces.',
             $name,
             implode(', ', array_column($namespaces, 'namespace'))
