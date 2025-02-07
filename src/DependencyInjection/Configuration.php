@@ -36,7 +36,6 @@ final class Configuration implements ConfigurationInterface
     {
         $node = (new TreeBuilder('admin'))->getRootNode();
 
-        /** @psalm-suppress UndefinedInterfaceMethod */
         $node
             ->addDefaultsIfNotSet()
             ->children()
@@ -73,7 +72,6 @@ final class Configuration implements ConfigurationInterface
     {
         $node = (new TreeBuilder('entity'))->getRootNode();
 
-        /** @psalm-suppress UndefinedInterfaceMethod */
         $node
             ->addDefaultsIfNotSet()
             ->children()
@@ -100,7 +98,6 @@ final class Configuration implements ConfigurationInterface
     {
         $node = (new TreeBuilder('controller'))->getRootNode();
 
-        /** @psalm-suppress UndefinedInterfaceMethod */
         $node
             ->addDefaultsIfNotSet()
             ->children()

@@ -100,7 +100,7 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
     /**
      * @return mixed[]
      */
-    public function provideProcessCases(): iterable
+    public static function provideProcessCases(): iterable
     {
         yield [
             CategoryAdmin::class,
