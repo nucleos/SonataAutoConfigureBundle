@@ -43,9 +43,9 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
     private string $managerType;
 
     /**
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     * @SuppressWarnings(PHPMD.NPathComplexity)
-     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+     * @SuppressWarnings("PHPMD.CyclomaticComplexity")
+     * @SuppressWarnings("PHPMD.NPathComplexity")
+     * @SuppressWarnings("PHPMD.ExcessiveMethodLength")
      */
     public function process(ContainerBuilder $container): void
     {
@@ -118,8 +118,8 @@ final class AutoConfigureAdminClassesCompilerPass implements CompilerPassInterfa
     }
 
     /**
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     * @SuppressWarnings(PHPMD.NPathComplexity)
+     * @SuppressWarnings("PHPMD.CyclomaticComplexity")
+     * @SuppressWarnings("PHPMD.NPathComplexity")
      */
     private function setDefaultValuesForAttribute(Inflector $inflector, Admin $attribute, string $name, array $defaults): void
     {

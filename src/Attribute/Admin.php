@@ -64,7 +64,7 @@ final class Admin
      * @param array<string, string>|null $templates
      * @param string[]|null              $children
      *
-     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+     * @SuppressWarnings("PHPMD.ExcessiveParameterList")
      */
     public function __construct(
         ?string $label = null,

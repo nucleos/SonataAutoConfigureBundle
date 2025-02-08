@@ -25,7 +25,7 @@ use Symfony\Component\DependencyInjection\Definition;
 final class AutoConfigureAdminExtensionsCompilerPass implements CompilerPassInterface
 {
     /**
-     * @SuppressWarnings(PHPMD.NPathComplexity)
+     * @SuppressWarnings("PHPMD.NPathComplexity")
      */
     public function process(ContainerBuilder $container): void
     {
