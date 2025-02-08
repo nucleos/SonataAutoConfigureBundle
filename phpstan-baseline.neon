@@ -1,67 +1,80 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:findEntity\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method Nucleos\\SonataAutoConfigureBundle\\DependencyInjection\\Compiler\\AutoConfigureAdminClassesCompilerPass\:\:findEntity\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
 
 		-
-			message: "#^Method Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:getAttributeDefaults\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method Nucleos\\SonataAutoConfigureBundle\\DependencyInjection\\Compiler\\AutoConfigureAdminClassesCompilerPass\:\:getAttributeDefaults\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
 
 		-
-			message: "#^Method Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:setDefaultValuesForAttribute\\(\\) has parameter \\$defaults with no value type specified in iterable type array\\.$#"
+			message: '#^Method Nucleos\\SonataAutoConfigureBundle\\DependencyInjection\\Compiler\\AutoConfigureAdminClassesCompilerPass\:\:setDefaultValuesForAttribute\(\) has parameter \$defaults with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
 
 		-
-			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
+			message: '#^Parameter \#1 \$objectOrClass of class ReflectionClass constructor expects class\-string\<T of object\>\|T of object, string given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
 
 		-
-			message: "#^Parameter \\#3 \\$name of method Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:setDefaultValuesForAttribute\\(\\) expects string, string\\|null given\\.$#"
+			message: '#^Parameter \#3 \$name of method Nucleos\\SonataAutoConfigureBundle\\DependencyInjection\\Compiler\\AutoConfigureAdminClassesCompilerPass\:\:setDefaultValuesForAttribute\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
 
 		-
-			message: "#^Part \\$adminSuffix \\(array\\|bool\\|float\\|int\\|string\\) of encapsed string cannot be cast to string\\.$#"
+			message: '#^Part \$adminSuffix \(array\|bool\|float\|int\|string\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
 
 		-
-			message: "#^Property Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:\\$controllerNamespaces \\(array\\<string\\>\\) does not accept array\\|bool\\|float\\|int\\|string\\|null\\.$#"
+			message: '#^Property Nucleos\\SonataAutoConfigureBundle\\DependencyInjection\\Compiler\\AutoConfigureAdminClassesCompilerPass\:\:\$controllerNamespaces \(array\<string\>\) does not accept array\|bool\|float\|int\|string\|null\.$#'
+			identifier: assign.propertyType
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
 
 		-
-			message: "#^Property Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:\\$controllerSuffix \\(string\\) does not accept array\\|bool\\|float\\|int\\|string\\|null\\.$#"
+			message: '#^Property Nucleos\\SonataAutoConfigureBundle\\DependencyInjection\\Compiler\\AutoConfigureAdminClassesCompilerPass\:\:\$controllerSuffix \(string\) does not accept array\|bool\|float\|int\|string\|null\.$#'
+			identifier: assign.propertyType
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
 
 		-
-			message: "#^Property Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:\\$entityNamespaces \\(array\\) does not accept array\\|bool\\|float\\|int\\|string\\|null\\.$#"
+			message: '#^Property Nucleos\\SonataAutoConfigureBundle\\DependencyInjection\\Compiler\\AutoConfigureAdminClassesCompilerPass\:\:\$entityNamespaces \(array\<mixed\>\) does not accept array\|bool\|float\|int\|string\|null\.$#'
+			identifier: assign.propertyType
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
 
 		-
-			message: "#^Property Nucleos\\\\SonataAutoConfigureBundle\\\\DependencyInjection\\\\Compiler\\\\AutoConfigureAdminClassesCompilerPass\\:\\:\\$managerType \\(string\\) does not accept array\\|bool\\|float\\|int\\|string\\|null\\.$#"
+			message: '#^Property Nucleos\\SonataAutoConfigureBundle\\DependencyInjection\\Compiler\\AutoConfigureAdminClassesCompilerPass\:\:\$managerType \(string\) does not accept array\|bool\|float\|int\|string\|null\.$#'
+			identifier: assign.propertyType
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminClassesCompilerPass.php
 
 		-
-			message: "#^Argument of an invalid type array\\<string\\>\\|null supplied for foreach, only iterables are supported\\.$#"
+			message: '#^Argument of an invalid type array\<string\>\|null supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminExtensionsCompilerPass.php
 
 		-
-			message: "#^Implicit array creation is not allowed \\- variable \\$attributes does not exist\\.$#"
+			message: '#^Implicit array creation is not allowed \- variable \$attributes does not exist\.$#'
+			identifier: variable.implicitArray
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminExtensionsCompilerPass.php
 
 		-
-			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
+			message: '#^Parameter \#1 \$objectOrClass of class ReflectionClass constructor expects class\-string\<T of object\>\|T of object, string given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/DependencyInjection/Compiler/AutoConfigureAdminExtensionsCompilerPass.php
 
