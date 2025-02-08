@@ -11,7 +11,6 @@ SonataAutoConfigureBundle
 
 [![Continuous Integration](https://github.com/nucleos/SonataAutoConfigureBundle/actions/workflows/continuous-integration.yml/badge.svg?event=push)](https://github.com/nucleos/SonataAutoConfigureBundle/actions?query=workflow%3A"Continuous+Integration"+event%3Apush)
 [![Code Coverage](https://codecov.io/gh/nucleos/SonataAutoConfigureBundle/graph/badge.svg)](https://codecov.io/gh/nucleos/SonataAutoConfigureBundle)
-[![Type Coverage](https://shepherd.dev/github/nucleos/SonataAutoConfigureBundle/coverage.svg)](https://shepherd.dev/github/nucleos/SonataAutoConfigureBundle)
 
 Tries to auto configure your admin classes and extensions, so you don't have to.
 
