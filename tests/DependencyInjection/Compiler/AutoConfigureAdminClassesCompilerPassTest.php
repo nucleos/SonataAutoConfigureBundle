@@ -19,6 +19,7 @@ use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\CategoryAdmin;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\DisableAutowireEntityAdmin;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\NoEntityAdmin;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Entity\Category;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -39,11 +40,10 @@ final class AutoConfigureAdminClassesCompilerPassTest extends TestCase
     }
 
     /**
-     * @dataProvider provideProcessCases
-     *
      * @param array<string, mixed> $tagOptions
      * @param string[]             $methodCalls
      */
+    #[DataProvider('provideProcessCases')]
     public function testProcess(
         string $admin,
         ?string $entity,

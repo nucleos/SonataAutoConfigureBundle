@@ -17,6 +17,7 @@ use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\Extension\ExtensionWi
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\Extension\GlobalExtension;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\Extension\MultipleTargetedExtension;
 use Nucleos\SonataAutoConfigureBundle\Tests\Fixtures\Admin\Extension\TargetedWithPriorityExtension;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -36,10 +37,9 @@ final class AutoConfigureExtensionsCompilerPassTest extends TestCase
     }
 
     /**
-     * @dataProvider provideProcessCases
-     *
      * @param string[] $expectedTags
      */
+    #[DataProvider('provideProcessCases')]
     public function testProcess(string $extensionServiceId, array $expectedTags = []): void
     {
         $this->loadConfig();
