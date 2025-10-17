@@ -2,27 +2,38 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 1.3.0 - TBD
+## 1.3.0 - 2025-10-17
 
-### Added
 
-- Nothing.
+-----
 
-### Changed
+### Release Notes for [1.3.0](https://github.com/nucleos/SonataAutoConfigureBundle/milestone/8)
 
-- Nothing.
+Feature release (minor)
 
-### Deprecated
+### 1.3.0
 
-- Nothing.
+- Total issues resolved: **0**
+- Total pull requests resolved: **12**
+- Total contributors: **2**
 
-### Removed
+#### dependency
 
-- Nothing.
+ - [121: Drop support for PHP 8.2](https://github.com/nucleos/SonataAutoConfigureBundle/pull/121) thanks to @core23
+ - [120: Update to phpunit v12](https://github.com/nucleos/SonataAutoConfigureBundle/pull/120) thanks to @core23
+ - [119: Update dependency matthiasnoback/symfony-dependency-injection-test to v6](https://github.com/nucleos/SonataAutoConfigureBundle/pull/119) thanks to @renovate[bot]
+ - [115: Update PHPStan packages to v2 (major)](https://github.com/nucleos/SonataAutoConfigureBundle/pull/115) thanks to @renovate[bot]
+ - [110: Update dependency doctrine/doctrine-fixtures-bundle to v4](https://github.com/nucleos/SonataAutoConfigureBundle/pull/110) thanks to @renovate[bot]
+ - [109: Update PHPStan packages to v2 (major)](https://github.com/nucleos/SonataAutoConfigureBundle/pull/109) thanks to @renovate[bot]
+ - [108: Update dependency matthiasnoback/symfony-dependency-injection-test to v6 - autoclosed](https://github.com/nucleos/SonataAutoConfigureBundle/pull/108) thanks to @renovate[bot]
 
-### Fixed
+#### Enhancement
 
-- Nothing.
+ - [118: Remove ci pipeline overrides ](https://github.com/nucleos/SonataAutoConfigureBundle/pull/118) thanks to @core23
+ - [117: Fix CS](https://github.com/nucleos/SonataAutoConfigureBundle/pull/117) thanks to @core23
+ - [116: Sync tool config ](https://github.com/nucleos/SonataAutoConfigureBundle/pull/116) thanks to @core23
+ - [114: Remove infection testing ](https://github.com/nucleos/SonataAutoConfigureBundle/pull/114) thanks to @core23
+ - [112: Remove psalm in favor of phpstan ](https://github.com/nucleos/SonataAutoConfigureBundle/pull/112) thanks to @core23
 
 ## 1.2.0 - 2023-12-21
 
